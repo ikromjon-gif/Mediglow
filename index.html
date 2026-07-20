@@ -125,22 +125,23 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 .hero-badge-text b{ font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--ink); }
 
 .hero-visual{ position:relative; }
-.hero-visual-card{
-  position:relative; aspect-ratio:1/1; border-radius:28px; overflow:hidden;
-  background:linear-gradient(160deg, var(--paper-2) 0%, var(--glow-soft) 130%);
-  display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow);
+.photo-collage{ position:relative; width:100%; aspect-ratio:0.95/1; }
+.collage-frame{
+  position:absolute; border-radius:22px; box-shadow:var(--shadow); overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  transition:transform .35s cubic-bezier(.2,.8,.2,1); text-align:center; padding:16px;
 }
-.hv-blob{
-  position:absolute; width:78%; height:78%; border-radius:44% 56% 62% 38%/50% 42% 58% 50%;
-  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), transparent 60%), var(--card);
-  opacity:.55; animation:blobMove 9s ease-in-out infinite;
+.collage-frame:hover{ transform:rotate(0deg) translateY(-4px) scale(1.01); z-index:5 !important; }
+.cf-icon{ width:26%; color:var(--fabric); opacity:.5; }
+.cf-icon svg{ width:100%; height:100%; }
+.cf-hint{ font-size:10.5px; color:var(--muted); opacity:.75; }
+.cf-caption{
+  position:absolute; bottom:14px; left:14px; right:14px; background:rgba(255,255,255,.92); backdrop-filter:blur(4px);
+  border-radius:100px; padding:7px 10px; font-size:11px; font-weight:600; color:var(--ink);
 }
-@keyframes blobMove{ 0%,100%{ border-radius:44% 56% 62% 38%/50% 42% 58% 50%; } 50%{ border-radius:58% 42% 40% 60%/45% 55% 45% 55%; } }
-.hv-figures{ position:relative; z-index:1; display:flex; align-items:flex-end; gap:-10px; }
-.hv-figure{ width:34vmin; max-width:150px; color:var(--ink); }
-.hv-figure svg{ width:100%; height:100%; }
-.hv-figure-1{ color:var(--fabric); margin-right:-18px; transform:translateY(6%); }
-.hv-figure-2{ color:var(--ink); }
+.collage-frame-a{ width:66%; aspect-ratio:4/5; top:0; left:0; background:linear-gradient(160deg,#E7F1EF 0%,#F6D9A0 160%); transform:rotate(-4deg); z-index:1; }
+.collage-frame-b{ width:56%; aspect-ratio:1/1; bottom:0; right:0; background:linear-gradient(160deg,#F4EEF6 0%,#8FA89F 170%); transform:rotate(4deg); z-index:2; }
+.collage-frame-b .cf-icon{ color:var(--ink); }
 .hero-chip{
   position:absolute; display:flex; align-items:center; gap:7px; background:var(--card); border-radius:100px;
   padding:10px 16px; box-shadow:var(--shadow); font-size:12px; color:var(--muted); animation:chipFloat 4.5s ease-in-out infinite;
@@ -539,9 +540,69 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 
 footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; color:var(--muted); font-size:12.5px; }
 
+/* ---------- HAMBURGER + MOBILE NAV DRAWER ---------- */
+.hamburger-btn{ display:none; width:40px; height:40px; border-radius:12px; align-items:center; justify-content:center; background:var(--card); border:1px solid var(--line); flex-shrink:0; transition:.15s; }
+.hamburger-btn svg{ width:19px; height:19px; }
+.hamburger-btn:hover{ border-color:var(--fabric-light); }
+.drawer-left{ left:0; right:auto; transform:translateX(-100%); box-shadow:10px 0 40px rgba(0,0,0,.15); }
+.drawer-left.show{ transform:translateX(0); }
+.mnav-list{ padding:10px 0; overflow-y:auto; flex:1; }
+.mnav-item{ display:flex; align-items:center; gap:14px; width:100%; padding:14px 22px; font-size:14.5px; font-weight:500; color:var(--ink); transition:.15s; text-align:left; }
+.mnav-item:hover{ background:var(--paper-2); }
+.mnav-item.active{ background:var(--paper-2); color:var(--ink); font-weight:600; }
+.mnav-item svg{ width:19px; height:19px; color:var(--fabric); flex-shrink:0; }
+.mnav-item.active svg{ color:var(--glow); }
+.mnav-item span{ flex:1; }
+.mnav-divider{ height:1px; background:var(--line); margin:8px 22px; }
+
+/* ---------- BOTTOM NAVIGATION (mobile only) ---------- */
+.bottom-nav{ display:none; }
+@media (max-width:980px){
+  .hamburger-btn{ display:flex; }
+  body{ padding-bottom:76px; }
+  .bottom-nav{
+    display:flex; position:fixed; bottom:0; left:0; right:0; z-index:45;
+    background:var(--card); border-top:1px solid var(--line);
+    padding:7px 4px calc(7px + env(safe-area-inset-bottom));
+    box-shadow:0 -8px 24px rgba(18,51,44,.08);
+  }
+}
+.bn-item{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 2px; color:var(--muted); position:relative; transition:.2s; }
+.bn-item svg{ width:21px; height:21px; transition:transform .2s cubic-bezier(.34,1.56,.64,1); }
+.bn-item span{ font-size:10px; font-weight:600; }
+.bn-item.active{ color:var(--ink); }
+.bn-item.active svg{ transform:translateY(-2px); color:var(--glow); }
+.bn-item.active::before{ content:''; position:absolute; top:-7px; left:50%; transform:translateX(-50%); width:18px; height:3px; border-radius:3px; background:var(--glow); }
+.bn-badge{ position:absolute; top:0; right:calc(50% - 15px); background:var(--clay); color:#fff; font-size:9px; font-weight:700; min-width:14px; height:14px; border-radius:50%; display:flex; align-items:center; justify-content:center; padding:0 3px; }
+
+/* ---------- CONTACT PAGE ---------- */
+.contact-layout{ display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:start; margin-bottom:26px; }
+.form-row textarea{ border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-size:14px; background:var(--paper); resize:vertical; font-family:inherit; }
+.form-row textarea:focus{ outline:none; border-color:var(--fabric-light); }
+.side-card h4 svg{ width:16px; height:16px; color:var(--fabric); flex-shrink:0; }
+.social-row{ display:flex; gap:10px; flex-wrap:wrap; }
+.social-row a{ width:38px; height:38px; border-radius:50%; background:var(--card); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--fabric); transition:.18s; }
+.social-row a svg{ width:16px; height:16px; }
+.social-row a:hover{ border-color:var(--glow); color:var(--ink); transform:translateY(-2px); }
+.map-placeholder{
+  border-radius:18px; border:1.5px dashed var(--line); background:var(--paper-2); aspect-ratio:16/6; min-height:180px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:var(--muted);
+}
+.map-placeholder svg{ width:26px; height:26px; color:var(--fabric); }
+.map-placeholder span{ font-size:13px; font-weight:500; }
+
+/* ---------- FAQ ACCORDION ---------- */
+.faq-list{ display:flex; flex-direction:column; gap:12px; max-width:760px; }
+.faq-item{ background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; }
+.faq-q{ width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px; padding:18px 20px; font-size:14.5px; font-weight:600; text-align:left; }
+.faq-toggle{ width:24px; height:24px; border-radius:50%; background:var(--paper-2); display:flex; align-items:center; justify-content:center; font-size:16px; color:var(--fabric); flex-shrink:0; transition:.25s; }
+.faq-item.open .faq-toggle{ transform:rotate(45deg); background:var(--glow-soft); color:var(--ink); }
+.faq-a{ max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; padding:0 20px; font-size:13.5px; color:var(--muted); line-height:1.6; }
+.faq-item.open .faq-a{ max-height:200px; padding:0 20px 18px; }
+
 @media (max-width:980px){
   .profession-grid{ grid-template-columns:repeat(4,1fr); }
-  .ai-layout, .b2b-layout, .dash-grid{ grid-template-columns:1fr; }
+  .ai-layout, .b2b-layout, .dash-grid, .contact-layout{ grid-template-columns:1fr; }
   .stat-grid{ grid-template-columns:repeat(2,1fr); }
   nav{ display:none; }
   .modal{ grid-template-columns:1fr; }
@@ -563,6 +624,13 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
   .hero-badges{ gap:16px 20px; }
   .hero-chip{ padding:8px 12px; font-size:11px; }
   .hero-chip b{ font-size:12px; }
+  .header-inner{ gap:8px; padding:13px 14px; }
+  .logo-mark{ width:28px; height:28px; }
+  .logo-text{ font-size:17px; }
+  .lang-select{ padding:7px 6px; font-size:11px; max-width:58px; }
+  .header-actions{ gap:6px; }
+  .icon-btn{ width:34px; height:34px; }
+  .hamburger-btn{ width:36px; height:36px; }
 }
 </style>
 </head>
@@ -572,10 +640,12 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="cartDrawer"></div>
 <div class="drawer" id="wishlistDrawer"></div>
+<div class="drawer drawer-left" id="mobileNavDrawer"></div>
 <div class="modal-wrap" id="productModal"></div>
 <div class="modal-wrap" id="adminModal"></div>
 <div class="modal-wrap" id="sizeGuideModal"></div>
 <div class="toast" id="toast"></div>
+<div class="bottom-nav" id="bottomNav"></div>
 
 <script>
 /* ============ ICONS (garment/profession line icons) ============ */
@@ -605,6 +675,18 @@ const ICONS = {
   layers:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2.5 2.5 7.5 12 12.5 21.5 7.5 12 2.5"/><polyline points="2.5 12.5 12 17.5 21.5 12.5"/><polyline points="2.5 17.5 12 22.5 21.5 17.5"/></svg>`,
   award:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="5.5"/><path d="M8.7 13.3L7 22l5-3 5 3-1.7-8.7"/></svg>`,
   arrowRight:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+  menu:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>`,
+  sparkle:`<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.8 5.4L19 9l-5.2 1.6L12 16l-1.8-5.4L5 9l5.2-1.6L12 2z"/><path d="M19 14l.8 2.3L22 17l-2.2.7L19 20l-.8-2.3L16 17l2.2-.7L19 14z"/></svg>`,
+  help:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.2a2.7 2.7 0 0 1 5.2.9c0 1.7-2.5 2-2.5 3.9"/><circle cx="12" cy="17.2" r="0.6" fill="currentColor" stroke="none"/></svg>`,
+  home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v10h13V10"/></svg>`,
+  user:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.2 21c0-4.3 3.5-7.8 7.8-7.8s7.8 3.5 7.8 7.8"/></svg>`,
+  phone:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2z"/></svg>`,
+  mail:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2.5"/><path d="M2.5 6.2l9.5 6.8 9.5-6.8"/></svg>`,
+  mapPin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.7 7-12.2A7 7 0 1 0 5 9.8C5 15.3 12 22 12 22z"/><circle cx="12" cy="9.8" r="2.5"/></svg>`,
+  instagram:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>`,
+  facebook:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3h-2.2A4.3 4.3 0 0 0 9 7.3V10H6.5v4H9v7h4v-7h2.8l.7-4H13V7.7a1 1 0 0 1 1-1h2.5z"/></svg>`,
+  linkedin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3.5"/><path d="M7.2 10.3V17M7.2 7.2v.01"/><path d="M11.3 17v-4.2a2.6 2.6 0 0 1 5.2 0V17M11.3 10.3V17"/></svg>`,
+  image:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15.5l-5.5-5.5L5 20"/></svg>`,
 };
 
 /* ============ DATA ============ */
@@ -648,6 +730,8 @@ const LANG = {
       heroTitle:"Har bir mutaxassis uchun mos ", heroTitleEm:"forma.", heroLead:"7 yo'nalish, 200+ model. Bo'yingiz va vazningizni ayting — AI o'lchamni tanlaydi.",
       catalogTitle:"Katalog", addToCart:"Savatga qo'shildi",
       shopNow:"Xarid qilish", bulkOrders:"Ulgurji buyurtma",
+      contact:"Aloqa", about:"Biz haqimizda", faq:"Savol-javob", categories:"Kategoriyalar", menu:"Menyu",
+      bnHome:"Bosh sahifa", bnSearch:"Qidiruv", bnWishlist:"Sevimli", bnCart:"Savat", bnProfile:"Profil",
       heroTrust:[
         {icon:'shield', value:'500+', label:"klinika ishonchi"},
         {icon:'layers', value:'200+', label:"tibbiy forma modeli"},
@@ -659,6 +743,8 @@ const LANG = {
       heroTitle:"Форма для каждого ", heroTitleEm:"специалиста.", heroLead:"7 направлений, 200+ моделей. Укажите рост и вес — ИИ подберёт размер.",
       catalogTitle:"Каталог", addToCart:"Добавлено в корзину",
       shopNow:"Купить сейчас", bulkOrders:"Оптовый заказ",
+      contact:"Контакты", about:"О нас", faq:"Вопросы", categories:"Категории", menu:"Меню",
+      bnHome:"Главная", bnSearch:"Поиск", bnWishlist:"Избранное", bnCart:"Корзина", bnProfile:"Профиль",
       heroTrust:[
         {icon:'shield', value:'500+', label:"клиник доверяют"},
         {icon:'layers', value:'200+', label:"моделей формы"},
@@ -670,6 +756,8 @@ const LANG = {
       heroTitle:"The right uniform for every ", heroTitleEm:"specialist.", heroLead:"7 categories, 200+ styles. Tell us your height and weight — AI finds your size.",
       catalogTitle:"Catalog", addToCart:"Added to cart",
       shopNow:"Shop Now", bulkOrders:"Bulk Orders",
+      contact:"Contact", about:"About Us", faq:"FAQ", categories:"Categories", menu:"Menu",
+      bnHome:"Home", bnSearch:"Search", bnWishlist:"Wishlist", bnCart:"Cart", bnProfile:"Profile",
       heroTrust:[
         {icon:'shield', value:'500+', label:"Trusted by clinics"},
         {icon:'layers', value:'200+', label:"Medical uniforms"},
@@ -681,6 +769,8 @@ const LANG = {
       heroTitle:"모든 전문가를 위한 ", heroTitleEm:"유니폼.", heroLead:"7개 분야, 200개 이상의 모델. 키와 몸무게를 알려주시면 AI가 사이즈를 찾아드립니다.",
       catalogTitle:"카탈로그", addToCart:"장바구니에 담김",
       shopNow:"지금 쇼핑하기", bulkOrders:"대량 주문",
+      contact:"연락처", about:"회사 소개", faq:"자주 묻는 질문", categories:"카테고리", menu:"메뉴",
+      bnHome:"홈", bnSearch:"검색", bnWishlist:"위시리스트", bnCart:"장바구니", bnProfile:"프로필",
       heroTrust:[
         {icon:'shield', value:'500+', label:"병원이 신뢰"},
         {icon:'layers', value:'200+', label:"의료 유니폼 모델"},
@@ -798,6 +888,8 @@ function render(){
   bindGlobalEvents();
   renderCart();
   renderWishlistDrawer();
+  renderMobileNavDrawer();
+  renderBottomNav();
 }
 
 function renderHeader(){
@@ -805,6 +897,7 @@ function renderHeader(){
   return `
   <header>
     <div class="header-inner">
+      <button class="hamburger-btn" id="hamburgerBtn">${ICONS.menu}</button>
       <div class="logo">
         <div class="logo-mark"><div class="halo"></div>${iconGlow()}</div>
         <div class="logo-text">Medi<b>glow</b></div>
@@ -814,6 +907,7 @@ function renderHeader(){
         <button data-page="ai" class="${state.page==='ai'?'active':''}">${L.ai}</button>
         <button data-page="b2b" class="${state.page==='b2b'?'active':''}">${L.b2b}</button>
         <button data-page="dash" class="${state.page==='dash'?'active':''}">${L.dash}</button>
+        <button data-page="contact" class="${state.page==='contact'?'active':''}">${L.contact}</button>
       </nav>
       <div class="header-actions">
         <select class="lang-select" id="langSelect">
@@ -841,6 +935,9 @@ function renderPage(){
   if(state.page==='ai') return renderAI();
   if(state.page==='b2b') return renderB2B();
   if(state.page==='dash') return renderDash();
+  if(state.page==='contact') return renderContact();
+  if(state.page==='about') return renderAbout();
+  if(state.page==='faq') return renderFAQ();
 }
 
 /* ============ HOME ============ */
@@ -872,11 +969,16 @@ function renderHome(){
           </div>
         </div>
         <div class="hero-visual">
-          <div class="hero-visual-card">
-            <div class="hv-blob"></div>
-            <div class="hv-figures">
-              <span class="hv-figure hv-figure-1">${ICONS.nurse}</span>
-              <span class="hv-figure hv-figure-2">${ICONS.surgeon}</span>
+          <div class="photo-collage">
+            <div class="collage-frame collage-frame-a">
+              <div class="cf-icon">${ICONS.image}</div>
+              <div class="cf-hint">Rasm shu yerga qo'yiladi</div>
+              <div class="cf-caption">Jarrohlik formasi</div>
+            </div>
+            <div class="collage-frame collage-frame-b">
+              <div class="cf-icon">${ICONS.image}</div>
+              <div class="cf-hint">Rasm shu yerga qo'yiladi</div>
+              <div class="cf-caption">Hamshira formasi</div>
             </div>
           </div>
           <div class="hero-chip chip-rating">${ICONS.star} <b>4.9/5</b><span>1,240+ sharh</span></div>
@@ -1124,6 +1226,110 @@ function renderB2B(){
         ${discountPct>0?`<div class="discount-tag">−${discountPct}% ulgurji chegirma</div>`:''}
         <button class="submit-btn" id="b2bSubmit">So'rov yuborish</button>
       </div>
+    </div>
+  </section>`;
+}
+
+/* ============ CONTACT PAGE ============ */
+function renderContact(){
+  return `
+  <section class="section">
+    <div class="section-head">
+      <div class="eyebrow">${t().contact}</div>
+      <h2 class="serif">Biz bilan bog'laning</h2>
+      <p>Savollaringiz bormi? Quyidagi formani to'ldiring yoki xohlagan kanal orqali murojaat qiling — jamoamiz tez orada javob beradi.</p>
+    </div>
+    <div class="contact-layout">
+      <div class="b2b-form">
+        <div class="two-col">
+          <div class="form-row">
+            <label>Ismingiz</label>
+            <input type="text" id="cfName" placeholder="Ismingizni kiriting">
+          </div>
+          <div class="form-row">
+            <label>Telefon yoki email</label>
+            <input type="text" id="cfContact" placeholder="+998 90 123 45 67">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Xabar</label>
+          <textarea id="cfMessage" rows="6" placeholder="Savolingiz yoki so'rovingizni yozing..."></textarea>
+        </div>
+        <button class="btn-primary" id="cfSubmit" style="justify-content:center;">Xabarni yuborish ${ICONS.arrowRight}</button>
+      </div>
+      <div class="ai-side">
+        <div class="side-card">
+          <h4>${ICONS.phone} Telefon</h4>
+          <p>+998 71 200 00 00<br>+998 90 123 45 67</p>
+        </div>
+        <div class="side-card">
+          <h4>${ICONS.mail} Email</h4>
+          <p>info@mediglow.uz</p>
+        </div>
+        <div class="side-card">
+          <h4>${ICONS.clock} Ish vaqti</h4>
+          <p>Dushanba – Shanba: 9:00 – 19:00<br>Yakshanba: dam olish kuni</p>
+        </div>
+        <div class="side-card">
+          <h4>${ICONS.mapPin} Manzil</h4>
+          <p>Toshkent sh., Yunusobod tumani,<br>Amir Temur ko'chasi, 45-uy</p>
+        </div>
+        <div class="side-card">
+          <h4>Ijtimoiy tarmoqlar</h4>
+          <div class="social-row">
+            <a href="#" onclick="return false;" title="Telegram">${ICONS.send}</a>
+            <a href="#" onclick="return false;" title="Instagram">${ICONS.instagram}</a>
+            <a href="#" onclick="return false;" title="Facebook">${ICONS.facebook}</a>
+            <a href="#" onclick="return false;" title="LinkedIn">${ICONS.linkedin}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="map-placeholder">
+      ${ICONS.mapPin}
+      <span>Google Xarita shu yerda ko'rsatiladi</span>
+    </div>
+  </section>`;
+}
+
+/* ============ ABOUT PAGE (basic — to be expanded in a later step) ============ */
+function renderAbout(){
+  return `
+  <section class="section">
+    <div class="section-head">
+      <div class="eyebrow">${t().about}</div>
+      <h2 class="serif">Mediglow haqida</h2>
+      <p>Mediglow — O'zbekiston tibbiyot xodimlari uchun sifatli va qulay formalar yetkazib beruvchi platforma. Har bir mutaxassislik uchun mos model, ishonchli mato va tez yetkazib berishni bir joyga jamladik.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Klinikalar</div><div class="stat-value mono">500+</div></div>
+      <div class="stat-card"><div class="stat-label">Forma modeli</div><div class="stat-value mono">200+</div></div>
+      <div class="stat-card"><div class="stat-label">Mijozlar reytingi</div><div class="stat-value mono">4.9/5</div></div>
+      <div class="stat-card"><div class="stat-label">Shaharlar</div><div class="stat-value mono">14</div></div>
+    </div>
+  </section>`;
+}
+
+/* ============ FAQ PAGE (basic — to be expanded in a later step) ============ */
+function renderFAQ(){
+  const faqs = [
+    {q:"Qanday buyurtma beraman?", a:"Kerakli mahsulotni tanlab, o'lcham va rangni belgilang, savatga qo'shing va buyurtmani rasmiylashtiring."},
+    {q:"Yetkazib berish qancha vaqt oladi?", a:"Odatda 2-5 ish kuni ichida, Toshkent bo'yicha esa tezroq yetkazib beramiz."},
+    {q:"Qaytarish siyosati qanday?", a:"Mahsulotni 7 kun ichida, yorlig'i saqlangan holda qaytarishingiz mumkin."},
+  ];
+  return `
+  <section class="section">
+    <div class="section-head">
+      <div class="eyebrow">${t().faq}</div>
+      <h2 class="serif">Ko'p so'raladigan savollar</h2>
+      <p>Eng ko'p beriladigan savollarga qisqa javoblar. To'liq bo'lim tez orada kengaytiriladi.</p>
+    </div>
+    <div class="faq-list">
+      ${faqs.map((f,i)=>`
+        <div class="faq-item" id="faqItem${i}">
+          <button class="faq-q" data-faq="${i}">${f.q}<span class="faq-toggle">+</span></button>
+          <div class="faq-a">${f.a}</div>
+        </div>`).join('')}
     </div>
   </section>`;
 }
@@ -1588,8 +1794,96 @@ function bindWishlistEvents(){
     b.onclick = ()=>{ closeWishlistDrawer(); openModal(parseInt(b.dataset.wishopen)); };
   });
 }
-function openWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
-function closeWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+function openWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); renderBottomNav(); }
+function closeWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); renderBottomNav(); }
+
+/* ============ MOBILE NAV DRAWER ============ */
+function renderMobileNavDrawer(){
+  const L = t();
+  const drawer = document.getElementById('mobileNavDrawer');
+  const items = [
+    {label:L.home, icon:'home', page:'home'},
+    {label:L.categories, icon:'layers', page:'home', scrollTarget:'.profession-grid'},
+    {label:L.ai, icon:'sparkle', page:'ai'},
+    {label:L.b2b, icon:'shield', page:'b2b'},
+    {label:L.dash, icon:'user', page:'dash'},
+    {label:L.about, icon:'award', page:'about'},
+    {label:L.contact, icon:'phone', page:'contact'},
+    {label:L.faq, icon:'help', page:'faq'},
+  ];
+  drawer.innerHTML = `
+    <div class="drawer-head">
+      <h3>${L.menu}</h3>
+      <button class="close-btn" id="closeMobileNav">${ICONS.close}</button>
+    </div>
+    <div class="mnav-list">
+      ${items.map((it,i)=>`
+        <button class="mnav-item ${state.page===it.page && !it.scrollTarget ? 'active':''}" data-mnav="${i}">
+          ${ICONS[it.icon]}<span>${it.label}</span>
+        </button>`).join('')}
+    </div>`;
+  bindMobileNavEvents(items);
+}
+function bindMobileNavEvents(items){
+  document.getElementById('closeMobileNav').onclick = closeMobileNav;
+  document.querySelectorAll('[data-mnav]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const it = items[parseInt(btn.dataset.mnav)];
+      state.page = it.page;
+      closeMobileNav();
+      render();
+      if(it.scrollTarget){
+        setTimeout(()=>{ document.querySelector(it.scrollTarget)?.scrollIntoView({behavior:'smooth', block:'start'}); }, 320);
+      }else{
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+    };
+  });
+}
+function openMobileNav(){ document.getElementById('mobileNavDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
+function closeMobileNav(){ document.getElementById('mobileNavDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+
+/* ============ BOTTOM NAVIGATION (mobile) ============ */
+function renderBottomNav(){
+  const L = t();
+  const bn = document.getElementById('bottomNav');
+  const cartOpen = document.getElementById('cartDrawer')?.classList.contains('show');
+  const wishOpen = document.getElementById('wishlistDrawer')?.classList.contains('show');
+  const cartCount = state.cart.reduce((a,b)=>a+b.qty,0);
+  const wishCount = state.wishlist.length;
+  const items = [
+    {key:'home', label:L.bnHome, icon:'home', active: state.page==='home'},
+    {key:'search', label:L.bnSearch, icon:'search', active:false},
+    {key:'wishlist', label:L.bnWishlist, icon:'heart', active: wishOpen, badge: wishCount},
+    {key:'cart', label:L.bnCart, icon:'cart', active: cartOpen, badge: cartCount},
+    {key:'profile', label:L.bnProfile, icon:'user', active: state.page==='dash'},
+  ];
+  bn.innerHTML = items.map(it=>`
+    <button class="bn-item ${it.active?'active':''}" data-bn="${it.key}">
+      ${ICONS[it.icon]}
+      ${it.badge>0 ? `<span class="bn-badge">${it.badge}</span>` : ''}
+      <span>${it.label}</span>
+    </button>`).join('');
+  bindBottomNavEvents();
+}
+function bindBottomNavEvents(){
+  document.querySelectorAll('[data-bn]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const key = btn.dataset.bn;
+      if(key==='home'){ state.page='home'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+      else if(key==='search'){
+        state.page='home'; render();
+        setTimeout(()=>{
+          document.getElementById('catalogSection')?.scrollIntoView({behavior:'smooth', block:'start'});
+          setTimeout(()=> document.getElementById('searchInput')?.focus(), 350);
+        }, 50);
+      }
+      else if(key==='wishlist'){ openWishlistDrawer(); renderBottomNav(); }
+      else if(key==='cart'){ openDrawer(); renderBottomNav(); }
+      else if(key==='profile'){ state.page='dash'; state.dashView='mijoz'; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+    };
+  });
+}
 
 let currentModalProduct = null;
 let modalSize = 'M';
@@ -1817,8 +2111,8 @@ function addToCart(p, size, color, qty){
   openDrawer();
 }
 
-function openDrawer(){ document.getElementById('cartDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
-function closeDrawer(){ document.getElementById('cartDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+function openDrawer(){ document.getElementById('cartDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); renderBottomNav(); }
+function closeDrawer(){ document.getElementById('cartDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); renderBottomNav(); }
 
 let toastTimer;
 function showToast(msg){
@@ -1835,6 +2129,7 @@ function bindGlobalEvents(){
     b.onclick = ()=>{ state.page = b.dataset.page; render(); window.scrollTo({top:0,behavior:'smooth'}); };
   });
   document.getElementById('langSelect').onchange = (e)=>{ state.lang = e.target.value; render(); };
+  document.getElementById('hamburgerBtn').onclick = openMobileNav;
   document.getElementById('wishlistBtn').onclick = openWishlistDrawer;
   document.getElementById('cartBtn').onclick = openDrawer;
 
@@ -1893,6 +2188,27 @@ function bindGlobalEvents(){
     b.onclick = ()=>{ state.dashView = b.dataset.dash; render(); };
   });
 
+  // Contact page
+  document.getElementById('cfSubmit')?.addEventListener('click', ()=>{
+    const name = document.getElementById('cfName').value.trim();
+    const msg = document.getElementById('cfMessage').value.trim();
+    if(!name || !msg){ showToast("Ism va xabar maydonlarini to'ldiring"); return; }
+    showToast("Xabaringiz qabul qilindi! Tez orada bog'lanamiz.");
+    document.getElementById('cfName').value='';
+    document.getElementById('cfContact').value='';
+    document.getElementById('cfMessage').value='';
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('[data-faq]').forEach(btn=>{
+    btn.onclick = ()=>{
+      const item = document.getElementById('faqItem'+btn.dataset.faq);
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(x=> x.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    };
+  });
+
   // Product management
   document.getElementById('addProductBtn')?.addEventListener('click', ()=> openProductForm(null));
   document.querySelectorAll('[data-editprod]').forEach(b=>{
@@ -1903,7 +2219,7 @@ function bindGlobalEvents(){
   });
 
   // cart drawer / overlay
-  document.getElementById('overlay').onclick = ()=>{ closeDrawer(); closeModal(); closeProductForm(); closeWishlistDrawer(); closeSizeGuide(); };
+  document.getElementById('overlay').onclick = ()=>{ closeDrawer(); closeModal(); closeProductForm(); closeWishlistDrawer(); closeSizeGuide(); closeMobileNav(); };
 }
 
 render();
