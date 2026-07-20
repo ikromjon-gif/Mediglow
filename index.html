@@ -29,6 +29,7 @@ body{
   color:var(--ink);
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
 }
 .serif{ font-family:'Fraunces', serif; }
 .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:.02em; }
@@ -92,14 +93,68 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 }
 .eyebrow::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--glow); }
 .hero h1{
-  font-family:'Fraunces', serif; font-weight:600; font-size:clamp(30px,4.2vw,52px);
-  line-height:1.06; letter-spacing:-.01em; max-width:780px;
+  font-family:'Fraunces', serif; font-weight:600; font-size:clamp(30px,3.6vw,48px);
+  line-height:1.08; letter-spacing:-.01em;
 }
 .hero h1 em{ font-style:italic; color:var(--fabric); position:relative; }
-.hero p.lead{ margin-top:16px; color:var(--muted); font-size:16px; max-width:560px; }
+.hero p.lead{ margin-top:16px; color:var(--muted); font-size:16px; max-width:480px; }
+
+.hero-top{ display:grid; grid-template-columns:1.15fr 1fr; gap:52px; align-items:center; margin-bottom:40px; }
+.hero-content{ min-width:0; }
+
+.hero-cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+.btn-primary{
+  display:inline-flex; align-items:center; gap:9px; background:var(--ink); color:var(--paper);
+  padding:14px 24px; border-radius:100px; font-size:14.5px; font-weight:600; transition:all .2s cubic-bezier(.2,.8,.2,1);
+}
+.btn-primary svg{ width:15px; height:15px; transition:transform .2s; }
+.btn-primary:hover{ background:var(--fabric); transform:translateY(-1px); box-shadow:var(--shadow); }
+.btn-primary:hover svg{ transform:translateX(3px); }
+.btn-outline{
+  display:inline-flex; align-items:center; gap:9px; background:var(--card); color:var(--ink);
+  border:1px solid var(--line); padding:14px 22px; border-radius:100px; font-size:14.5px; font-weight:600; transition:all .2s;
+}
+.btn-outline svg{ width:15px; height:15px; color:var(--fabric); }
+.btn-outline:hover{ border-color:var(--glow); background:var(--paper-2); transform:translateY(-1px); }
+
+.hero-badges{ display:flex; flex-wrap:wrap; gap:22px; margin-top:34px; padding-top:26px; border-top:1px solid var(--line); }
+.hero-badge{ display:flex; align-items:center; gap:9px; }
+.hero-badge-icon{ width:32px; height:32px; border-radius:9px; background:var(--paper-2); color:var(--fabric); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.hero-badge-icon svg{ width:16px; height:16px; }
+.hero-badge-text{ font-size:11.5px; color:var(--muted); line-height:1.35; display:flex; flex-direction:column; }
+.hero-badge-text b{ font-family:'Fraunces',serif; font-size:15px; font-weight:600; color:var(--ink); }
+
+.hero-visual{ position:relative; }
+.hero-visual-card{
+  position:relative; aspect-ratio:1/1; border-radius:28px; overflow:hidden;
+  background:linear-gradient(160deg, var(--paper-2) 0%, var(--glow-soft) 130%);
+  display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow);
+}
+.hv-blob{
+  position:absolute; width:78%; height:78%; border-radius:44% 56% 62% 38%/50% 42% 58% 50%;
+  background:radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), transparent 60%), var(--card);
+  opacity:.55; animation:blobMove 9s ease-in-out infinite;
+}
+@keyframes blobMove{ 0%,100%{ border-radius:44% 56% 62% 38%/50% 42% 58% 50%; } 50%{ border-radius:58% 42% 40% 60%/45% 55% 45% 55%; } }
+.hv-figures{ position:relative; z-index:1; display:flex; align-items:flex-end; gap:-10px; }
+.hv-figure{ width:34vmin; max-width:150px; color:var(--ink); }
+.hv-figure svg{ width:100%; height:100%; }
+.hv-figure-1{ color:var(--fabric); margin-right:-18px; transform:translateY(6%); }
+.hv-figure-2{ color:var(--ink); }
+.hero-chip{
+  position:absolute; display:flex; align-items:center; gap:7px; background:var(--card); border-radius:100px;
+  padding:10px 16px; box-shadow:var(--shadow); font-size:12px; color:var(--muted); animation:chipFloat 4.5s ease-in-out infinite;
+}
+.hero-chip svg{ width:15px; height:15px; }
+.hero-chip b{ font-family:'IBM Plex Mono',monospace; font-size:13.5px; color:var(--ink); font-weight:600; }
+.hero-chip.chip-rating{ top:6%; right:-4%; }
+.hero-chip.chip-rating svg{ color:var(--glow); }
+.hero-chip.chip-trust{ bottom:8%; left:-6%; animation-delay:1.2s; }
+.hero-chip.chip-trust svg{ color:var(--fabric); }
+@keyframes chipFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-8px); } }
 
 .profession-grid{
-  display:grid; grid-template-columns:repeat(7,1fr); gap:10px; margin-top:36px;
+  display:grid; grid-template-columns:repeat(7,1fr); gap:10px;
 }
 .prof-card{
   background:var(--card); border:1px solid var(--line); border-radius:16px;
@@ -490,6 +545,11 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
   .stat-grid{ grid-template-columns:repeat(2,1fr); }
   nav{ display:none; }
   .modal{ grid-template-columns:1fr; }
+  .hero-top{ grid-template-columns:1fr; gap:36px; }
+  .hero-visual{ order:-1; max-width:360px; margin:0 auto; width:100%; }
+  .hero-chip.chip-rating{ right:0; }
+  .hero-chip.chip-trust{ left:0; }
+  .hero p.lead{ max-width:100%; }
 }
 @media (max-width:560px){
   .profession-grid{ grid-template-columns:repeat(3,1fr); }
@@ -498,6 +558,11 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
   .sg-inputs{ grid-template-columns:1fr; }
   .mini-card, .recent-viewed-section .mini-card{ width:104px; }
   .mini-card-media, .recent-viewed-section .mini-card-media{ width:104px; height:104px; }
+  .hero-cta{ flex-direction:column; }
+  .btn-primary, .btn-outline{ width:100%; justify-content:center; }
+  .hero-badges{ gap:16px 20px; }
+  .hero-chip{ padding:8px 12px; font-size:11px; }
+  .hero-chip b{ font-size:12px; }
 }
 </style>
 </head>
@@ -536,6 +601,10 @@ const ICONS = {
   ruler:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-5 3 3 8-8 2 2-10 10-3-3-3 3z"/><path d="M14.5 6.5l2 2M11.5 9.5l2 2M8.5 12.5l2 2"/></svg>`,
   tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.3L12.7 20.2a2 2 0 0 1-2.8 0l-7-7a2 2 0 0 1 0-2.8L10.8 2.5H19a2 2 0 0 1 2 2v7.8z"/><circle cx="15" cy="7" r="1.3" fill="currentColor" stroke="none"/></svg>`,
   clock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
+  shield:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 3.2v5.8c0 5-3.4 8.8-8 11-4.6-2.2-8-6-8-11V5.2L12 2z"/><path d="M8.5 12l2.3 2.3L15.5 9.5"/></svg>`,
+  layers:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2.5 2.5 7.5 12 12.5 21.5 7.5 12 2.5"/><polyline points="2.5 12.5 12 17.5 21.5 12.5"/><polyline points="2.5 17.5 12 22.5 21.5 17.5"/></svg>`,
+  award:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="5.5"/><path d="M8.7 13.3L7 22l5-3 5 3-1.7-8.7"/></svg>`,
+  arrowRight:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
 };
 
 /* ============ DATA ============ */
@@ -577,16 +646,48 @@ let PRODUCTS = [
 const LANG = {
   uz:{home:"Bosh sahifa", ai:"AI Yordamchi", b2b:"Klinikalar uchun", dash:"Kabinet", heroEyebrow:"Kasbga mos tanlangan",
       heroTitle:"Har bir mutaxassis uchun mos ", heroTitleEm:"forma.", heroLead:"7 yo'nalish, 200+ model. Bo'yingiz va vazningizni ayting — AI o'lchamni tanlaydi.",
-      catalogTitle:"Katalog", addToCart:"Savatga qo'shildi"},
+      catalogTitle:"Katalog", addToCart:"Savatga qo'shildi",
+      shopNow:"Xarid qilish", bulkOrders:"Ulgurji buyurtma",
+      heroTrust:[
+        {icon:'shield', value:'500+', label:"klinika ishonchi"},
+        {icon:'layers', value:'200+', label:"tibbiy forma modeli"},
+        {icon:'award', value:'Premium', label:"sifat kafolati"},
+        {icon:'truck', value:'Tezkor', label:"yetkazib berish"},
+        {icon:'star', value:'4.9/5', label:"mijozlar bahosi"},
+      ]},
   ru:{home:"Главная", ai:"ИИ-помощник", b2b:"Для клиник", dash:"Кабинет", heroEyebrow:"Подбор по профессии",
       heroTitle:"Форма для каждого ", heroTitleEm:"специалиста.", heroLead:"7 направлений, 200+ моделей. Укажите рост и вес — ИИ подберёт размер.",
-      catalogTitle:"Каталог", addToCart:"Добавлено в корзину"},
+      catalogTitle:"Каталог", addToCart:"Добавлено в корзину",
+      shopNow:"Купить сейчас", bulkOrders:"Оптовый заказ",
+      heroTrust:[
+        {icon:'shield', value:'500+', label:"клиник доверяют"},
+        {icon:'layers', value:'200+', label:"моделей формы"},
+        {icon:'award', value:'Премиум', label:"гарантия качества"},
+        {icon:'truck', value:'Быстрая', label:"доставка"},
+        {icon:'star', value:'4.9/5', label:"оценка клиентов"},
+      ]},
   en:{home:"Home", ai:"AI Assistant", b2b:"For Clinics", dash:"Dashboard", heroEyebrow:"Matched to your profession",
       heroTitle:"The right uniform for every ", heroTitleEm:"specialist.", heroLead:"7 categories, 200+ styles. Tell us your height and weight — AI finds your size.",
-      catalogTitle:"Catalog", addToCart:"Added to cart"},
+      catalogTitle:"Catalog", addToCart:"Added to cart",
+      shopNow:"Shop Now", bulkOrders:"Bulk Orders",
+      heroTrust:[
+        {icon:'shield', value:'500+', label:"Trusted by clinics"},
+        {icon:'layers', value:'200+', label:"Medical uniforms"},
+        {icon:'award', value:'Premium', label:"Quality guarantee"},
+        {icon:'truck', value:'Fast', label:"Delivery"},
+        {icon:'star', value:'4.9/5', label:"Customer rating"},
+      ]},
   ko:{home:"홈", ai:"AI 어시스턴트", b2b:"병원용", dash:"대시보드", heroEyebrow:"직업에 맞게 선택",
       heroTitle:"모든 전문가를 위한 ", heroTitleEm:"유니폼.", heroLead:"7개 분야, 200개 이상의 모델. 키와 몸무게를 알려주시면 AI가 사이즈를 찾아드립니다.",
-      catalogTitle:"카탈로그", addToCart:"장바구니에 담김"},
+      catalogTitle:"카탈로그", addToCart:"장바구니에 담김",
+      shopNow:"지금 쇼핑하기", bulkOrders:"대량 주문",
+      heroTrust:[
+        {icon:'shield', value:'500+', label:"병원이 신뢰"},
+        {icon:'layers', value:'200+', label:"의료 유니폼 모델"},
+        {icon:'award', value:'프리미엄', label:"품질 보증"},
+        {icon:'truck', value:'빠른', label:"배송"},
+        {icon:'star', value:'4.9/5', label:"고객 평점"},
+      ]},
 };
 
 /* ============ STATE ============ */
@@ -753,9 +854,35 @@ function renderHome(){
   return `
   <main>
     <section class="hero">
-      <div class="eyebrow">${L.heroEyebrow}</div>
-      <h1>${L.heroTitle}<em>${L.heroTitleEm}</em></h1>
-      <p class="lead">${L.heroLead}</p>
+      <div class="hero-top">
+        <div class="hero-content">
+          <div class="eyebrow">${L.heroEyebrow}</div>
+          <h1>${L.heroTitle}<em>${L.heroTitleEm}</em></h1>
+          <p class="lead">${L.heroLead}</p>
+          <div class="hero-cta">
+            <button class="btn-primary" id="heroShopNow">${L.shopNow} ${ICONS.arrowRight}</button>
+            <button class="btn-outline" id="heroBulkOrders">${ICONS.layers} ${L.bulkOrders}</button>
+          </div>
+          <div class="hero-badges">
+            ${L.heroTrust.map(tr=>`
+              <div class="hero-badge">
+                <span class="hero-badge-icon">${ICONS[tr.icon]}</span>
+                <span class="hero-badge-text"><b>${tr.value}</b>${tr.label}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-visual-card">
+            <div class="hv-blob"></div>
+            <div class="hv-figures">
+              <span class="hv-figure hv-figure-1">${ICONS.nurse}</span>
+              <span class="hv-figure hv-figure-2">${ICONS.surgeon}</span>
+            </div>
+          </div>
+          <div class="hero-chip chip-rating">${ICONS.star} <b>4.9/5</b><span>1,240+ sharh</span></div>
+          <div class="hero-chip chip-trust">${ICONS.shield} <b>500+</b><span>klinika</span></div>
+        </div>
+      </div>
       <div class="profession-grid">
         ${PROFESSIONS.map(p=>`
           <button class="prof-card ${state.profFilter===p.id?'active':''}" data-prof="${p.id}">
@@ -768,7 +895,7 @@ function renderHome(){
       </div>
     </section>
     ${renderRecentlyViewed()}
-    <section class="catalog-section">
+    <section class="catalog-section" id="catalogSection">
       <div class="catalog-head">
         <h2 class="serif">${state.profFilter ? PROFESSIONS.find(p=>p.id===state.profFilter).name : L.catalogTitle}</h2>
         <div style="display:flex;align-items:center;gap:14px;">
@@ -1713,6 +1840,12 @@ function bindGlobalEvents(){
 
   document.querySelectorAll('.prof-card').forEach(b=>{
     b.onclick = ()=>{ state.profFilter = state.profFilter===b.dataset.prof ? null : b.dataset.prof; render(); };
+  });
+  document.getElementById('heroShopNow')?.addEventListener('click', ()=>{
+    document.getElementById('catalogSection')?.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.getElementById('heroBulkOrders')?.addEventListener('click', ()=>{
+    state.page='b2b'; render(); window.scrollTo({top:0,behavior:'smooth'});
   });
   const searchInput = document.getElementById('searchInput');
   if(searchInput){
