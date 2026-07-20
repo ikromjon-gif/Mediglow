@@ -407,9 +407,9 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 /* ---------- PRODUCT MODAL ---------- */
 .modal-wrap{ position:fixed; inset:0; z-index:70; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:.2s; padding:20px;}
 .modal-wrap.show{ opacity:1; pointer-events:all; }
-.modal{ background:var(--card); border-radius:22px; max-width:760px; width:100%; max-height:88vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr; }
-.modal-media{ background:var(--paper-2); display:flex; align-items:center; justify-content:center; padding:40px; position:relative; }
-.modal-media svg{ width:60%; height:60%; }
+.modal{ background:var(--card); border-radius:22px; max-width:760px; width:100%; max-height:88vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr; align-items:start; }
+.modal-media{ background:var(--paper-2); display:flex; align-items:center; justify-content:center; padding:40px; position:relative; aspect-ratio:1/1; }
+.modal-media svg{ width:60%; height:60%; max-width:220px; max-height:220px; }
 .modal-body{ padding:32px 30px; }
 .modal-body .tag{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--fabric); font-weight:700; }
 .modal-body h2{ font-family:'Fraunces',serif; font-size:24px; margin:8px 0 10px; }
