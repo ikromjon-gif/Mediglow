@@ -127,8 +127,21 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 .search-box svg{ width:16px; height:16px; color:var(--muted); flex-shrink:0; }
 .search-box input{ border:none; background:none; outline:none; font-size:13.5px; width:100%; color:var(--ink); }
 .catalog-empty{ grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--muted); font-size:14px; }
-.stock-tag{ position:absolute; top:10px; right:10px; background:rgba(255,255,255,.92); backdrop-filter:blur(4px); border-radius:100px; padding:4px 9px; font-size:10.5px; font-weight:600; color:var(--fabric); }
+.stock-tag{ background:rgba(255,255,255,.92); backdrop-filter:blur(4px); border-radius:100px; padding:4px 9px; font-size:10.5px; font-weight:600; color:var(--fabric); white-space:nowrap; }
 .stock-tag.low{ color:var(--clay); }
+.media-top-right{ position:absolute; top:10px; right:10px; z-index:2; display:flex; flex-direction:column; align-items:flex-end; gap:6px; }
+.wish-btn{ width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.92); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; color:var(--fabric); transition:.18s cubic-bezier(.2,.8,.2,1); flex-shrink:0; }
+.wish-btn svg{ width:15px; height:15px; transition:transform .25s cubic-bezier(.34,1.56,.64,1); }
+.wish-btn:hover{ transform:scale(1.1); }
+.wish-btn.active{ color:var(--clay); }
+.wish-btn.active svg{ fill:var(--clay); transform:scale(1.12); }
+.wish-btn:active svg{ transform:scale(.85); }
+.product-rating{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); }
+.product-rating .mono{ font-size:11px; color:var(--fabric); font-weight:600; }
+.stars{ display:inline-flex; gap:1px; align-items:center; }
+.star{ width:var(--star-size,14px); height:var(--star-size,14px); flex-shrink:0; color:var(--line); }
+.star svg{ width:100%; height:100%; fill:currentColor; }
+.star.filled{ color:var(--glow); }
 .out-overlay{ position:absolute; inset:0; background:rgba(244,246,243,.72); display:flex; align-items:center; justify-content:center; }
 .out-overlay span{ background:var(--ink); color:var(--paper); font-size:11px; font-weight:700; padding:6px 13px; border-radius:100px; letter-spacing:.02em; }
 .add-btn:disabled{ opacity:.35; pointer-events:none; }
@@ -391,8 +404,83 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 
 .admin-modal-body{ padding:30px; max-width:460px; }
 .admin-modal-body h2{ font-family:'Fraunces',serif; font-size:21px; margin-bottom:20px; }
+.admin-modal-body h2 svg{ width:20px; height:20px; vertical-align:-4px; margin-right:3px; }
 .checkbox-colors{ display:flex; gap:9px; flex-wrap:wrap; }
 .checkbox-colors .color-dot{ width:28px; height:28px; }
+
+/* ---------- WISHLIST DRAWER EXTRAS ---------- */
+.wish-view-btn{ font-size:11.5px; font-weight:600; color:var(--fabric); text-decoration:underline; }
+.wish-view-btn:hover{ color:var(--ink); }
+
+/* ---------- DELIVERY ESTIMATE ---------- */
+.delivery-row{ display:flex; align-items:center; gap:9px; font-size:12.5px; color:var(--fabric); font-weight:500; margin-top:10px; padding:10px 12px; background:var(--paper-2); border-radius:10px; }
+.delivery-row svg{ width:17px; height:17px; flex-shrink:0; color:var(--fabric); }
+.delivery-row b{ color:var(--ink); font-weight:600; }
+.delivery-row.mini{ margin:0 22px 14px; }
+
+/* ---------- SIZE GUIDE ---------- */
+.size-guide-link{ display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:var(--fabric); margin-left:10px; text-decoration:underline; text-underline-offset:2px; }
+.size-guide-link:hover{ color:var(--ink); }
+.size-guide-link svg{ width:13px; height:13px; }
+.sg-inputs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+.sg-calc-btn{ width:100%; background:var(--ink); color:var(--paper); padding:13px; border-radius:12px; font-weight:700; font-size:14px; transition:.18s; }
+.sg-calc-btn:hover{ background:var(--fabric); }
+.sg-result{ margin-top:20px; padding:20px; border-radius:14px; background:var(--paper-2); text-align:center; opacity:0; transform:translateY(6px); transition:all .3s cubic-bezier(.2,.8,.2,1); }
+.sg-result.show{ opacity:1; transform:translateY(0); }
+.sg-result .sg-size{ font-family:'Fraunces',serif; font-size:38px; font-weight:700; color:var(--ink); line-height:1; margin:6px 0; }
+.sg-result .sg-size span{ display:inline-flex; align-items:center; justify-content:center; width:64px; height:64px; border-radius:50%; background:var(--card); box-shadow:0 0 0 3px var(--glow); }
+.sg-result p{ font-size:12.5px; color:var(--muted); margin-top:6px; }
+.sg-select-btn{ margin-top:14px; background:var(--glow); color:var(--ink); font-weight:700; padding:11px 20px; border-radius:100px; font-size:13px; transition:.18s; }
+.sg-select-btn:hover{ background:var(--glow-soft); }
+.sg-table{ margin-top:22px; font-size:11.5px; color:var(--muted); line-height:1.7; border-top:1px solid var(--line); padding-top:14px; }
+
+/* ---------- REVIEWS ---------- */
+.reviews-section{ margin-top:28px; border-top:1px solid var(--line); padding-top:22px; }
+.reviews-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+.reviews-head h3{ font-family:'Fraunces',serif; font-size:16px; font-weight:600; }
+.reviews-avg{ display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--muted); }
+.reviews-avg b{ color:var(--ink); font-size:13.5px; }
+.review-list{ display:flex; flex-direction:column; gap:14px; }
+.review-item{ background:var(--paper-2); border-radius:14px; padding:14px 16px; animation:fadeInUp .35s ease both; }
+.review-top{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.review-avatar{ width:30px; height:30px; border-radius:50%; background:var(--fabric); color:var(--paper); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700; flex-shrink:0; font-family:'Fraunces',serif; }
+.review-name{ font-size:12.5px; font-weight:600; }
+.review-date{ font-size:11px; color:var(--muted); margin-left:auto; white-space:nowrap; }
+.review-comment{ font-size:12.5px; color:var(--ink-70); line-height:1.55; }
+@keyframes fadeInUp{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:translateY(0);} }
+
+/* ---------- RELATED / RECENTLY VIEWED ---------- */
+.related-section{ margin-top:28px; border-top:1px solid var(--line); padding-top:22px; }
+.related-section h3{ font-family:'Fraunces',serif; font-size:16px; font-weight:600; margin-bottom:14px; }
+.mini-card-row{ display:flex; gap:12px; overflow-x:auto; padding-bottom:6px; scroll-behavior:smooth; }
+.mini-card{ flex-shrink:0; width:118px; cursor:pointer; transition:transform .2s; }
+.mini-card:hover{ transform:translateY(-3px); }
+.mini-card-media{ width:118px; height:118px; border-radius:12px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:7px; }
+.mini-card-media svg{ width:52%; height:52%; }
+.mini-card-media img{ width:100%; height:100%; object-fit:cover; }
+.mini-card-name{ font-size:11.5px; font-weight:600; line-height:1.3; margin-bottom:2px; }
+.mini-card-price{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; font-weight:600; color:var(--fabric); }
+
+.recent-viewed-section{ max-width:1180px; margin:0 auto; padding:0 24px 8px; }
+.recent-viewed-section .rv-head{ display:flex; align-items:center; gap:8px; margin-bottom:16px; }
+.recent-viewed-section .rv-head svg{ width:16px; height:16px; color:var(--fabric); }
+.recent-viewed-section .rv-head h2{ font-family:'Fraunces',serif; font-size:19px; font-weight:600; }
+.recent-viewed-section .mini-card{ width:150px; }
+.recent-viewed-section .mini-card-media{ width:150px; height:150px; }
+
+/* ---------- COUPON ---------- */
+.coupon-block{ padding:0 22px 14px; }
+.coupon-block .opt-label svg{ width:14px; height:14px; color:var(--fabric); }
+.coupon-row{ display:flex; gap:8px; }
+.coupon-row input{ flex:1; border:1px solid var(--line); border-radius:10px; padding:10px 13px; font-size:13px; background:var(--card); text-transform:uppercase; }
+.coupon-row input:focus{ outline:none; border-color:var(--fabric-light); }
+.coupon-apply-btn{ background:var(--ink); color:var(--paper); padding:10px 16px; border-radius:10px; font-size:12.5px; font-weight:600; white-space:nowrap; transition:.18s; }
+.coupon-apply-btn:hover{ background:var(--fabric); }
+.coupon-hint{ font-size:11px; color:var(--muted); margin-top:6px; }
+.coupon-applied{ display:flex; align-items:center; justify-content:space-between; background:var(--paper-2); border:1px dashed var(--fabric-light); border-radius:10px; padding:10px 13px; font-size:12.5px; }
+.coupon-applied b{ color:var(--fabric); font-weight:700; }
+.coupon-remove{ font-size:11px; color:var(--clay); text-decoration:underline; }
+.discount-row{ display:flex; justify-content:space-between; font-size:13px; color:var(--fabric); margin-bottom:6px; }
 
 footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; color:var(--muted); font-size:12.5px; }
 
@@ -407,6 +495,9 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
   .profession-grid{ grid-template-columns:repeat(3,1fr); }
   .stat-grid{ grid-template-columns:1fr 1fr; }
   .two-col{ grid-template-columns:1fr; }
+  .sg-inputs{ grid-template-columns:1fr; }
+  .mini-card, .recent-viewed-section .mini-card{ width:104px; }
+  .mini-card-media, .recent-viewed-section .mini-card-media{ width:104px; height:104px; }
 }
 </style>
 </head>
@@ -415,8 +506,10 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
 
 <div class="overlay" id="overlay"></div>
 <div class="drawer" id="cartDrawer"></div>
+<div class="drawer" id="wishlistDrawer"></div>
 <div class="modal-wrap" id="productModal"></div>
 <div class="modal-wrap" id="adminModal"></div>
+<div class="modal-wrap" id="sizeGuideModal"></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -437,6 +530,12 @@ const ICONS = {
   edit:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>`,
   trash:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>`,
   search:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>`,
+  heart:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.9a5.4 5.4 0 0 0-7.7 0L12 6l-1.1-1.1a5.4 5.4 0 0 0-7.7 7.7L12 21l8.8-8.4a5.4 5.4 0 0 0 0-7.7z"/></svg>`,
+  star:`<svg viewBox="0 0 24 24"><path d="M12 2.5l3.09 6.26 6.91 1-5 4.87 1.18 6.87L12 17.9l-6.18 3.6L7 14.63l-5-4.87 6.91-1L12 2.5z"/></svg>`,
+  truck:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="6" width="14" height="11"/><path d="M15 10h4l3 3v4h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg>`,
+  ruler:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 16l5-5 3 3 8-8 2 2-10 10-3-3-3 3z"/><path d="M14.5 6.5l2 2M11.5 9.5l2 2M8.5 12.5l2 2"/></svg>`,
+  tag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 12.3L12.7 20.2a2 2 0 0 1-2.8 0l-7-7a2 2 0 0 1 0-2.8L10.8 2.5H19a2 2 0 0 1 2 2v7.8z"/><circle cx="15" cy="7" r="1.3" fill="currentColor" stroke="none"/></svg>`,
+  clock:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>`,
 };
 
 /* ============ DATA ============ */
@@ -497,6 +596,9 @@ let state = {
   searchQuery:'',
   lang:'uz',
   cart:[],
+  wishlist:[],
+  recentlyViewed:[],
+  appliedCoupon:null,
   dashView:'sotuvchi',
   b2bQty:100,
   b2bColor:'green',
@@ -506,12 +608,95 @@ let state = {
 function money(n){ return n.toLocaleString('uz-UZ').replace(/,/g,' ') + " so'm"; }
 function t(){ return LANG[state.lang]; }
 
+/* ============ REVIEWS (dummy, deterministic per product) ============ */
+const REVIEW_NAMES = ["Dilnoza","Sardor","Malika","Javlon","Nodira","Aziz","Kamola","Bekzod","Shahnoza","Ulug'bek","Zarina","Farrux","Madina","Otabek"];
+const REVIEW_POS = [
+  "Sifati juda yaxshi, mato nafas oladi va issiq qilmaydi.",
+  "O'lchami aynan mos keldi, albatta tavsiya qilaman.",
+  "Tikuvi puxta, bir necha oy kiysam ham shaklini yo'qotmadi.",
+  "Narxiga nisbatan sifati ajoyib, yana buyurtma beraman.",
+  "Ish joyida kiyishga juda qulay, cho'ntaklari ham baquvvat.",
+  "Rangi rasmda ko'rsatilganidek chiqdi, juda mamnunman.",
+];
+const REVIEW_MID = [
+  "Yaxshi, lekin yetkazib berish biroz kechikdi.",
+  "Sifati o'rtacha, kutganimdan biroz farq qildi.",
+  "Yaxshi forma, lekin o'lchami biroz katta keldi, o'lcham jadvaliga qarab tanlang.",
+];
+let REVIEWS_CACHE = {};
+function mulberry32(seed){
+  return function(){
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = (t + Math.imul(t ^ t >>> 7, 61 | t)) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function getReviews(productId){
+  if(REVIEWS_CACHE[productId]) return REVIEWS_CACHE[productId];
+  const rand = mulberry32(productId*97 + 13);
+  const count = 3 + Math.floor(rand()*4);
+  const reviews = [];
+  for(let i=0;i<count;i++){
+    const r = rand();
+    const rating = r<0.65 ? 5 : r<0.9 ? 4 : 3;
+    const name = REVIEW_NAMES[Math.floor(rand()*REVIEW_NAMES.length)];
+    const pool = rating>=4 ? REVIEW_POS : REVIEW_MID;
+    const comment = pool[Math.floor(rand()*pool.length)];
+    const daysAgo = 2 + Math.floor(rand()*70);
+    reviews.push({name, rating, comment, daysAgo});
+  }
+  reviews.sort((a,b)=>a.daysAgo-b.daysAgo);
+  REVIEWS_CACHE[productId] = reviews;
+  return reviews;
+}
+function avgRating(productId){
+  const reviews = getReviews(productId);
+  return Math.round((reviews.reduce((a,r)=>a+r.rating,0)/reviews.length)*10)/10;
+}
+function renderStars(rating, size){
+  size = size || 14;
+  let html = `<span class="stars" style="--star-size:${size}px">`;
+  for(let i=1;i<=5;i++){
+    html += `<span class="star ${i<=Math.round(rating)?'filled':''}">${ICONS.star}</span>`;
+  }
+  html += `</span>`;
+  return html;
+}
+
+/* ============ SIZE RECOMMENDATION (height + weight) ============ */
+function recommendSize(h, w){
+  const table = [
+    {size:'XS', hMax:162, wMax:54},
+    {size:'S',  hMax:170, wMax:66},
+    {size:'M',  hMax:178, wMax:80},
+    {size:'L',  hMax:186, wMax:96},
+    {size:'XL', hMax:194, wMax:112},
+    {size:'XXL',hMax:999, wMax:999},
+  ];
+  let hi = table.findIndex(x=>h<=x.hMax); if(hi<0) hi = table.length-1;
+  let wi = table.findIndex(x=>w<=x.wMax); if(wi<0) wi = table.length-1;
+  return table[Math.max(hi,wi)].size;
+}
+
+/* ============ DELIVERY ESTIMATE ============ */
+function deliveryEstimateText(){
+  const fmt = d => d.toLocaleDateString('uz-UZ',{day:'numeric', month:'long'});
+  const from = new Date(); from.setDate(from.getDate()+2);
+  const to = new Date(); to.setDate(to.getDate()+5);
+  return `${fmt(from)} – ${fmt(to)}`;
+}
+
+/* ============ COUPONS ============ */
+const COUPONS = { MEDIGLOW10:10, WELCOME15:15, YANGI20:20 };
+
 /* ============ RENDER ROOT ============ */
 function render(){
   const app = document.getElementById('app');
   app.innerHTML = renderHeader() + renderPage();
   bindGlobalEvents();
   renderCart();
+  renderWishlistDrawer();
 }
 
 function renderHeader(){
@@ -536,6 +721,9 @@ function renderHeader(){
           <option value="en" ${state.lang==='en'?'selected':''}>English</option>
           <option value="ko" ${state.lang==='ko'?'selected':''}>한국어</option>
         </select>
+        <button class="icon-btn" id="wishlistBtn">${ICONS.heart}
+          ${state.wishlist.length ? `<span class="badge">${state.wishlist.length}</span>`:''}
+        </button>
         <button class="icon-btn" id="cartBtn">${ICONS.cart}
           ${state.cart.length ? `<span class="badge">${state.cart.reduce((a,b)=>a+b.qty,0)}</span>`:''}
         </button>
@@ -579,6 +767,7 @@ function renderHome(){
         `).join('')}
       </div>
     </section>
+    ${renderRecentlyViewed()}
     <section class="catalog-section">
       <div class="catalog-head">
         <h2 class="serif">${state.profFilter ? PROFESSIONS.find(p=>p.id===state.profFilter).name : L.catalogTitle}</h2>
@@ -597,6 +786,23 @@ function renderHome(){
   </main>`;
 }
 
+function renderRecentlyViewed(){
+  const items = state.recentlyViewed.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
+  if(items.length===0) return '';
+  return `
+  <section class="recent-viewed-section">
+    <div class="rv-head">${ICONS.clock}<h2>Yaqinda ko'rilgan</h2></div>
+    <div class="mini-card-row">
+      ${items.map(p=>`
+        <div class="mini-card" data-openproduct="${p.id}">
+          <div class="mini-card-media" style="background:${bgFor(p.prof)};color:var(--fabric)">${mediaInner(p)}</div>
+          <div class="mini-card-name">${p.name}</div>
+          <div class="mini-card-price">${money(p.price)}</div>
+        </div>`).join('')}
+    </div>
+  </section>`;
+}
+
 function bgFor(prof){
   const map = {men:'#EAF1EE', women:'#F6EEE9', surgeon:'#E7F1EF', nurse:'#F4EEF6', dentist:'#EDF3F7', vet:'#F2F0E7', lab:'#EFF3EC'};
   return map[prof] || 'var(--paper-2)';
@@ -608,17 +814,23 @@ function mediaInner(p){
 function renderProductCard(p){
   const outOfStock = p.stock === 0;
   const lowStock = p.stock > 0 && p.stock <= 15;
+  const wished = state.wishlist.includes(p.id);
+  const avg = avgRating(p.id);
   return `
   <div class="product-card" data-product="${p.id}">
     <div class="product-media" style="background:${bgFor(p.prof)};color:var(--fabric)">
       ${p.ai ? `<div class="ai-tag">AI tavsiya</div>` : ''}
-      ${!outOfStock ? `<div class="stock-tag ${lowStock?'low':''}">${lowStock ? "Kam qoldi: "+p.stock : "Omborda bor"}</div>` : ''}
+      <div class="media-top-right">
+        ${!outOfStock ? `<div class="stock-tag ${lowStock?'low':''}">${lowStock ? "Kam qoldi: "+p.stock : "Omborda bor"}</div>` : ''}
+        <button class="wish-btn ${wished?'active':''}" data-wish="${p.id}">${ICONS.heart}</button>
+      </div>
       ${mediaInner(p)}
       ${outOfStock ? `<div class="out-overlay"><span>Tugagan</span></div>` : ''}
     </div>
     <div class="product-body">
       <div class="product-tag">${PROFESSIONS.find(x=>x.id===p.prof).name}</div>
       <div class="product-name">${p.name}</div>
+      <div class="product-rating">${renderStars(avg,12)} <span class="mono">${avg}</span></div>
       <div class="product-bottom">
         <div>
           <div class="product-price mono">${money(p.price)}</div>
@@ -1090,7 +1302,9 @@ function deleteProduct(id){
 /* ============ CART DRAWER + MODAL ============ */
 function renderCart(){
   const drawer = document.getElementById('cartDrawer');
-  const total = state.cart.reduce((a,c)=>a + c.price*c.qty, 0);
+  const subtotal = state.cart.reduce((a,c)=>a + c.price*c.qty, 0);
+  const discount = state.appliedCoupon ? Math.round(subtotal * state.appliedCoupon.percent/100) : 0;
+  const total = subtotal - discount;
   drawer.innerHTML = `
     <div class="drawer-head">
       <h3>Savat</h3>
@@ -1117,7 +1331,28 @@ function renderCart(){
         </div>`).join('')
       }
     </div>
+    ${state.cart.length>0 ? `<div class="delivery-row mini">${ICONS.truck}<span>Yetkazib berish: <b>${deliveryEstimateText()}</b> oralig'ida</span></div>` : ''}
+    ${state.cart.length>0 ? `
+    <div class="coupon-block">
+      <div class="opt-label" style="display:flex;align-items:center;gap:6px;margin:0 0 8px;">${ICONS.tag} Promokod</div>
+      ${state.appliedCoupon ? `
+        <div class="coupon-applied">
+          <span>Qo'llanildi: <b>${state.appliedCoupon.code}</b> (−${state.appliedCoupon.percent}%)</span>
+          <button class="coupon-remove" id="couponRemove">Bekor qilish</button>
+        </div>
+      ` : `
+        <div class="coupon-row">
+          <input type="text" id="couponInput" placeholder="Masalan: MEDIGLOW10">
+          <button class="coupon-apply-btn" id="couponApply" type="button">Qo'llash</button>
+        </div>
+        <div class="coupon-hint">Sinab ko'ring: MEDIGLOW10, WELCOME15, YANGI20</div>
+      `}
+    </div>` : ''}
     <div class="drawer-footer">
+      ${discount>0 ? `
+        <div class="discount-row"><span>Oraliq summa</span><span class="mono">${money(subtotal)}</span></div>
+        <div class="discount-row"><span>Chegirma (−${state.appliedCoupon.percent}%)</span><span class="mono">−${money(discount)}</span></div>
+      ` : ''}
       <div class="subtotal-row"><span>Jami</span><b class="mono">${money(total)}</b></div>
       <div class="pay-methods"><div>Click</div><div>Payme</div><div>Uzum</div></div>
       <button class="checkout-btn" id="checkoutBtn" ${state.cart.length===0?'disabled':''}>Buyurtmani rasmiylashtirish</button>
@@ -1141,9 +1376,20 @@ function bindCartEvents(){
   document.querySelectorAll('[data-cartremove]').forEach(b=>{
     b.onclick = ()=>{ const i=parseInt(b.dataset.cartremove); state.cart.splice(i,1); renderHeaderCartBadge(); renderCart(); };
   });
+  const couponApply = document.getElementById('couponApply');
+  if(couponApply){
+    couponApply.onclick = ()=>{
+      const code = document.getElementById('couponInput').value.trim().toUpperCase();
+      if(!code){ showToast("Promokodni kiriting"); return; }
+      if(COUPONS[code]){ state.appliedCoupon = {code, percent:COUPONS[code]}; showToast(`Promokod qo'llanildi: −${COUPONS[code]}%`); renderCart(); }
+      else{ showToast("Bunday promokod topilmadi"); }
+    };
+  }
+  document.getElementById('couponRemove')?.addEventListener('click', ()=>{ state.appliedCoupon = null; renderCart(); });
   document.getElementById('checkoutBtn').onclick = ()=>{
     if(state.cart.length===0){ showToast("Savat bo'sh"); return; }
     state.cart = [];
+    state.appliedCoupon = null;
     closeDrawer();
     state.page='dash'; state.dashView='mijoz';
     render();
@@ -1161,6 +1407,63 @@ function renderHeaderCartBadge(){
   }else if(existing){ existing.remove(); }
 }
 
+/* ============ WISHLIST ============ */
+function toggleWishlist(id){
+  const idx = state.wishlist.indexOf(id);
+  if(idx>-1){ state.wishlist.splice(idx,1); showToast("Sevimlilardan olib tashlandi"); }
+  else{ state.wishlist.push(id); showToast("Sevimlilarga qo'shildi ♥"); }
+  render();
+}
+function renderHeaderWishBadge(){
+  const btn = document.getElementById('wishlistBtn');
+  if(!btn) return;
+  const existing = btn.querySelector('.badge');
+  const count = state.wishlist.length;
+  if(count>0){
+    if(existing) existing.textContent = count;
+    else btn.insertAdjacentHTML('beforeend', `<span class="badge">${count}</span>`);
+  }else if(existing){ existing.remove(); }
+}
+function renderWishlistDrawer(){
+  const drawer = document.getElementById('wishlistDrawer');
+  const items = state.wishlist.map(id=>PRODUCTS.find(p=>p.id===id)).filter(Boolean);
+  drawer.innerHTML = `
+    <div class="drawer-head">
+      <h3>Sevimlilar</h3>
+      <button class="close-btn" id="closeWishlist">${ICONS.close}</button>
+    </div>
+    <div class="cart-items">
+      ${items.length===0 ? `<div class="cart-empty">Sevimlilar ro'yxati bo'sh.<br>Yoqqan mahsulotni yurak belgisi bilan belgilang.</div>` :
+        items.map(p=>`
+        <div class="cart-item">
+          <div class="cart-item-media" style="background:${bgFor(p.prof)};color:var(--fabric)">${mediaInner(p)}</div>
+          <div class="cart-item-info">
+            <div class="name">${p.name}</div>
+            <div class="meta">${renderStars(avgRating(p.id),11)} <span class="mono" style="margin-left:4px;">${avgRating(p.id)}</span></div>
+            <div class="cart-item-bottom">
+              <button class="wish-view-btn" data-wishopen="${p.id}">Ko'rish</button>
+              <div class="price mono">${money(p.price)}</div>
+            </div>
+          </div>
+          <button class="cart-remove" data-wishremove="${p.id}">${ICONS.trash}</button>
+        </div>`).join('')
+      }
+    </div>`;
+  bindWishlistEvents();
+  renderHeaderWishBadge();
+}
+function bindWishlistEvents(){
+  document.getElementById('closeWishlist').onclick = closeWishlistDrawer;
+  document.querySelectorAll('[data-wishremove]').forEach(b=>{
+    b.onclick = ()=>{ toggleWishlist(parseInt(b.dataset.wishremove)); };
+  });
+  document.querySelectorAll('[data-wishopen]').forEach(b=>{
+    b.onclick = ()=>{ closeWishlistDrawer(); openModal(parseInt(b.dataset.wishopen)); };
+  });
+}
+function openWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.add('show'); document.getElementById('overlay').classList.add('show'); }
+function closeWishlistDrawer(){ document.getElementById('wishlistDrawer').classList.remove('show'); document.getElementById('overlay').classList.remove('show'); }
+
 let currentModalProduct = null;
 let modalSize = 'M';
 let modalColor = null;
@@ -1173,6 +1476,13 @@ function openModal(id){
   modalColor = p.colors[0];
   modalQty = 1;
   const outOfStock = p.stock === 0;
+  const wished = state.wishlist.includes(p.id);
+  const avg = avgRating(p.id);
+  const reviews = getReviews(p.id);
+  const related = PRODUCTS.filter(x=>x.prof===p.prof && x.id!==p.id).slice(0,4);
+
+  state.recentlyViewed = [id, ...state.recentlyViewed.filter(x=>x!==id)].slice(0,8);
+
   const wrap = document.getElementById('productModal');
   wrap.innerHTML = `
     <div class="modal">
@@ -1181,11 +1491,20 @@ function openModal(id){
         ${mediaInner(p)}
       </div>
       <div class="modal-body">
-        <div class="tag">${PROFESSIONS.find(x=>x.id===p.prof).name}</div>
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+          <div class="tag">${PROFESSIONS.find(x=>x.id===p.prof).name}</div>
+          <button class="wish-btn ${wished?'active':''}" data-wish="${p.id}" style="position:static;">${ICONS.heart}</button>
+        </div>
         <h2 class="serif">${p.name}</h2>
+        <div class="product-rating" style="margin-bottom:10px;">${renderStars(avg,14)} <span class="mono">${avg}</span> <span style="color:var(--muted);">(${reviews.length} sharh)</span></div>
         <div class="price mono">${money(p.price)}</div>
         <div style="font-size:12.5px;font-weight:600;color:${outOfStock?'var(--clay)':'var(--fabric)'}">${outOfStock ? "Hozircha omborda yo'q" : (p.stock<=15 ? `Omborda kam qoldi: ${p.stock} dona` : `Omborda mavjud: ${p.stock} dona`)}</div>
-        <div class="opt-label">O'lcham</div>
+
+        ${!outOfStock ? `<div class="delivery-row">${ICONS.truck}<span>Yetkazib berish: <b>${deliveryEstimateText()}</b> oralig'ida</span></div>` : ''}
+
+        <div class="opt-label" style="display:flex;align-items:center;">O'lcham
+          <button class="size-guide-link" id="sizeGuideOpen" type="button">${ICONS.ruler} O'lchamni bilmayman</button>
+        </div>
         <div class="size-row" id="sizeRow">
           ${p.sizes.map(s=>`<button class="size-btn ${s===modalSize?'selected':''}" data-size="${s}">${s}</button>`).join('')}
         </div>
@@ -1202,6 +1521,40 @@ function openModal(id){
           <span class="modal-qty-max">maksimal: ${p.stock} dona</span>
         </div>` : ''}
         <button class="modal-add" id="modalAdd" ${outOfStock?'disabled style="opacity:.4;pointer-events:none;"':''}>${outOfStock ? "Omborda yo'q" : "Savatga qo'shish"}</button>
+
+        <div class="reviews-section">
+          <div class="reviews-head">
+            <h3>Mijozlar sharhlari</h3>
+            <div class="reviews-avg">${renderStars(avg,15)} <b class="mono">${avg}</b><span>/ 5</span></div>
+          </div>
+          <div class="review-list">
+            ${reviews.slice(0,3).map(r=>`
+              <div class="review-item">
+                <div class="review-top">
+                  <div class="review-avatar">${r.name[0]}</div>
+                  <div>
+                    <div class="review-name">${r.name}</div>
+                    ${renderStars(r.rating,11)}
+                  </div>
+                  <div class="review-date">${r.daysAgo} kun oldin</div>
+                </div>
+                <div class="review-comment">${r.comment}</div>
+              </div>`).join('')}
+          </div>
+        </div>
+
+        ${related.length ? `
+        <div class="related-section">
+          <h3>O'xshash mahsulotlar</h3>
+          <div class="mini-card-row">
+            ${related.map(rp=>`
+              <div class="mini-card" data-openproduct="${rp.id}">
+                <div class="mini-card-media" style="background:${bgFor(rp.prof)};color:var(--fabric)">${mediaInner(rp)}</div>
+                <div class="mini-card-name">${rp.name}</div>
+                <div class="mini-card-price">${money(rp.price)}</div>
+              </div>`).join('')}
+          </div>
+        </div>` : ''}
       </div>
     </div>`;
   document.getElementById('overlay').classList.add('show');
@@ -1210,6 +1563,7 @@ function openModal(id){
 }
 function closeModal(){
   document.getElementById('productModal').classList.remove('show');
+  document.getElementById('sizeGuideModal').classList.remove('show');
   document.getElementById('overlay').classList.remove('show');
 }
 function bindModalEvents(){
@@ -1230,6 +1584,98 @@ function bindModalEvents(){
     addToCart(currentModalProduct, modalSize, modalColor, modalQty);
     closeModal();
   };
+  const modalWish = document.querySelector('#productModal [data-wish]');
+  if(modalWish){
+    modalWish.onclick = ()=>{ toggleWishlist(currentModalProduct.id); modalWish.classList.toggle('active', state.wishlist.includes(currentModalProduct.id)); };
+  }
+  const sgLink = document.getElementById('sizeGuideOpen');
+  if(sgLink){ sgLink.onclick = ()=> openSizeGuide(); }
+  document.querySelectorAll('#productModal [data-openproduct]').forEach(el=>{
+    el.onclick = ()=> openModal(parseInt(el.dataset.openproduct));
+  });
+}
+
+/* ============ SIZE GUIDE MODAL ============ */
+function renderSizeGuide(){
+  const wrap = document.getElementById('sizeGuideModal');
+  wrap.innerHTML = `
+    <div class="modal" style="grid-template-columns:1fr;">
+      <div class="admin-modal-body">
+        <button class="modal-close" id="sgClose">${ICONS.close}</button>
+        <h2>${ICONS.ruler} O'lcham qo'llanmasi</h2>
+        <p style="font-size:12.5px;color:var(--muted);margin-bottom:18px;margin-top:-10px;">Bo'yingiz va vazningizni kiriting — sizga mos o'lchamni hisoblab beramiz.</p>
+        <div class="sg-inputs">
+          <div class="form-row">
+            <label>Bo'yingiz (sm)</label>
+            <input type="number" id="sgHeight" placeholder="170">
+          </div>
+          <div class="form-row">
+            <label>Vazningiz (kg)</label>
+            <input type="number" id="sgWeight" placeholder="68">
+          </div>
+        </div>
+        <button class="sg-calc-btn" id="sgCalc" type="button">O'lchamni hisoblash</button>
+        <div class="sg-result" id="sgResult">
+          <div style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em;">Tavsiya etilgan o'lcham</div>
+          <div class="sg-size"><span id="sgSizeValue">M</span></div>
+          <p id="sgResultNote"></p>
+          <button class="sg-select-btn" id="sgSelectBtn" type="button">Ushbu o'lchamni tanlash</button>
+        </div>
+        <div class="sg-table">
+          XS: 152–162sm / 40–54kg<br>
+          S: 160–170sm / 50–66kg<br>
+          M: 168–178sm / 62–80kg<br>
+          L: 176–186sm / 78–96kg<br>
+          XL: 184–194sm / 92–112kg<br>
+          XXL: 190sm+ / 108kg+
+        </div>
+      </div>
+    </div>`;
+  bindSizeGuideEvents();
+}
+function bindSizeGuideEvents(){
+  document.getElementById('sgClose').onclick = closeSizeGuide;
+  document.getElementById('sgCalc').onclick = ()=>{
+    const h = parseFloat(document.getElementById('sgHeight').value);
+    const w = parseFloat(document.getElementById('sgWeight').value);
+    if(!h || !w || h<100 || h>230 || w<30 || w>200){ showToast("Bo'y va vazningizni to'g'ri kiriting"); return; }
+    const size = recommendSize(h, w);
+    document.getElementById('sgSizeValue').textContent = size;
+    const p = currentModalProduct;
+    const noteEl = document.getElementById('sgResultNote');
+    const selectBtn = document.getElementById('sgSelectBtn');
+    if(p && p.sizes.includes(size)){
+      noteEl.textContent = `Bu mahsulotda "${size}" o'lchami mavjud.`;
+      selectBtn.style.display = 'inline-flex';
+      selectBtn.dataset.size = size;
+    }else if(p){
+      noteEl.textContent = `Bu mahsulotda "${size}" mavjud emas. Mavjud o'lchamlar: ${p.sizes.join(', ')}.`;
+      selectBtn.style.display = 'none';
+    }else{
+      noteEl.textContent = "Katalogdan mos mahsulotni tanlaganingizda shu o'lchamni ko'rsatib qo'yamiz.";
+      selectBtn.style.display = 'none';
+    }
+    document.getElementById('sgResult').classList.add('show');
+  };
+  document.getElementById('sgSelectBtn').onclick = (e)=>{
+    const size = e.currentTarget.dataset.size;
+    if(!size || !currentModalProduct) return;
+    modalSize = size;
+    document.querySelectorAll('#sizeRow .size-btn').forEach(x=>{ x.classList.toggle('selected', x.dataset.size===size); });
+    closeSizeGuide();
+    showToast(`O'lcham tanlandi: ${size}`);
+  };
+}
+function openSizeGuide(){
+  renderSizeGuide();
+  document.getElementById('overlay').classList.add('show');
+  document.getElementById('sizeGuideModal').classList.add('show');
+}
+function closeSizeGuide(){
+  document.getElementById('sizeGuideModal').classList.remove('show');
+  if(!document.getElementById('productModal').classList.contains('show')){
+    document.getElementById('overlay').classList.remove('show');
+  }
 }
 
 function addToCart(p, size, color, qty){
@@ -1262,6 +1708,7 @@ function bindGlobalEvents(){
     b.onclick = ()=>{ state.page = b.dataset.page; render(); window.scrollTo({top:0,behavior:'smooth'}); };
   });
   document.getElementById('langSelect').onchange = (e)=>{ state.lang = e.target.value; render(); };
+  document.getElementById('wishlistBtn').onclick = openWishlistDrawer;
   document.getElementById('cartBtn').onclick = openDrawer;
 
   document.querySelectorAll('.prof-card').forEach(b=>{
@@ -1276,6 +1723,12 @@ function bindGlobalEvents(){
   });
   document.querySelectorAll('[data-quickadd]').forEach(btn=>{
     btn.onclick = (e)=>{ e.stopPropagation(); const p = PRODUCTS.find(x=>x.id===parseInt(btn.dataset.quickadd)); if(p.stock===0){ showToast("Bu mahsulot omborda yo'q"); return; } addToCart(p, p.sizes[0]||'M', p.colors[0], 1); };
+  });
+  document.querySelectorAll('[data-wish]').forEach(btn=>{
+    btn.onclick = (e)=>{ e.stopPropagation(); toggleWishlist(parseInt(btn.dataset.wish)); };
+  });
+  document.querySelectorAll('[data-openproduct]').forEach(el=>{
+    el.onclick = ()=> openModal(parseInt(el.dataset.openproduct));
   });
 
   // AI page
@@ -1317,7 +1770,7 @@ function bindGlobalEvents(){
   });
 
   // cart drawer / overlay
-  document.getElementById('overlay').onclick = ()=>{ closeDrawer(); closeModal(); closeProductForm(); };
+  document.getElementById('overlay').onclick = ()=>{ closeDrawer(); closeModal(); closeProductForm(); closeWishlistDrawer(); closeSizeGuide(); };
 }
 
 render();
