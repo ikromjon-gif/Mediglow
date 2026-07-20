@@ -284,7 +284,7 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 .b2b-form{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:30px; display:flex; flex-direction:column; gap:22px; box-shadow:var(--shadow); }
 .form-row{ display:flex; flex-direction:column; gap:8px; }
 .form-row label{ font-size:12.5px; font-weight:600; color:var(--ink); }
-.form-row input[type=text], .form-row input[type=number], .form-row select{
+.form-row input[type=text], .form-row input[type=number], .form-row input[type=password], .form-row select{
   border:1px solid var(--line); border-radius:10px; padding:11px 13px; font-size:14px; background:var(--paper);
 }
 .form-row input:focus, .form-row select:focus{ outline:none; border-color:var(--fabric-light); }
@@ -540,6 +540,59 @@ nav button.active{ color:var(--ink); background:var(--card); box-shadow:var(--sh
 
 footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; color:var(--muted); font-size:12.5px; }
 
+/* ---------- AUTH PAGES ---------- */
+.auth-section{ max-width:1180px; margin:0 auto; padding:60px 24px 90px; display:flex; justify-content:center; }
+.auth-card{ width:100%; max-width:420px; background:var(--card); border:1px solid var(--line); border-radius:22px; padding:36px 32px; box-shadow:var(--shadow); animation:fadeInUp .4s ease both; }
+.auth-logo{ display:flex; align-items:center; gap:10px; margin-bottom:24px; }
+.auth-logo .logo-mark{ width:32px; height:32px; }
+.auth-card h2{ font-family:'Fraunces',serif; font-size:24px; font-weight:600; }
+.auth-sub{ font-size:13.5px; color:var(--muted); margin-top:6px; margin-bottom:20px; }
+.btn-google{
+  width:100%; display:flex; align-items:center; justify-content:center; gap:10px; background:var(--card);
+  border:1px solid var(--line); padding:12px; border-radius:12px; font-size:13.5px; font-weight:600; color:var(--ink); transition:.18s;
+}
+.btn-google:hover{ border-color:var(--fabric-light); background:var(--paper-2); }
+.btn-google svg{ width:18px; height:18px; }
+.auth-divider{ display:flex; align-items:center; gap:12px; margin:20px 0; color:var(--muted); font-size:12px; }
+.auth-divider::before, .auth-divider::after{ content:''; flex:1; height:1px; background:var(--line); }
+.password-field{ position:relative; }
+.password-field input{ width:100%; padding-right:42px; }
+.toggle-pass{ position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--muted); width:20px; height:20px; }
+.toggle-pass svg{ width:100%; height:100%; }
+.toggle-pass:hover{ color:var(--ink); }
+.field-error{ font-size:11.5px; color:var(--clay); margin-top:5px; min-height:14px; }
+.form-row input.error{ border-color:var(--clay); }
+.auth-row-between{ display:flex; align-items:center; justify-content:space-between; margin-top:4px; flex-wrap:wrap; gap:8px; }
+.checkbox-row{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--muted); cursor:pointer; }
+.checkbox-row input{ width:15px; height:15px; accent-color:var(--fabric); cursor:pointer; }
+.auth-link{ font-size:12.5px; font-weight:600; color:var(--fabric); text-decoration:underline; text-underline-offset:2px; }
+.auth-link:hover{ color:var(--ink); }
+.auth-submit{ position:relative; min-height:48px; }
+.btn-spinner-ring{ width:18px; height:18px; border:2.5px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.auth-guest{ width:100%; text-align:center; padding:12px; margin-top:10px; font-size:13px; font-weight:600; color:var(--muted); border-radius:12px; transition:.15s; }
+.auth-guest:hover{ background:var(--paper-2); color:var(--ink); }
+.auth-footer-text{ text-align:center; font-size:13px; color:var(--muted); margin-top:18px; }
+.auth-alert{ display:none; align-items:center; gap:9px; padding:11px 14px; border-radius:12px; font-size:12.5px; font-weight:500; margin-bottom:16px; animation:fadeInUp .25s ease both; }
+.auth-alert.show{ display:flex; }
+.auth-alert svg{ width:17px; height:17px; flex-shrink:0; }
+.auth-alert.error{ background:#FBEAE7; color:var(--clay); }
+.auth-alert.success{ background:#E6F4EA; color:#2E7D46; }
+
+.profile-layout{ display:grid; grid-template-columns:.85fr 1.3fr; gap:24px; align-items:start; margin-top:22px; }
+.profile-card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:32px 24px; text-align:center; box-shadow:var(--shadow); }
+.profile-avatar{
+  width:76px; height:76px; border-radius:50%; background:var(--fabric); color:var(--paper); font-family:'Fraunces',serif;
+  font-size:30px; font-weight:600; display:flex; align-items:center; justify-content:center; margin:0 auto 14px;
+}
+.profile-name{ font-size:16px; font-weight:600; }
+.profile-email{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+.guest-tag{ display:inline-block; margin-top:10px; background:var(--paper-2); color:var(--fabric); font-size:11px; font-weight:700; padding:4px 11px; border-radius:100px; }
+.auth-logout-btn{ width:100%; margin-top:20px; padding:11px; border-radius:12px; border:1px solid var(--line); font-size:12.5px; font-weight:600; color:var(--clay); transition:.15s; }
+.auth-logout-btn:hover{ background:#FBEAE7; border-color:var(--clay); }
+.mnav-account{ background:var(--paper-2); font-weight:600; }
+.mnav-account svg{ color:var(--glow); }
+
 /* ---------- HAMBURGER + MOBILE NAV DRAWER ---------- */
 .hamburger-btn{ display:none; width:40px; height:40px; border-radius:12px; align-items:center; justify-content:center; background:var(--card); border:1px solid var(--line); flex-shrink:0; transition:.15s; }
 .hamburger-btn svg{ width:19px; height:19px; }
@@ -602,7 +655,7 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
 
 @media (max-width:980px){
   .profession-grid{ grid-template-columns:repeat(4,1fr); }
-  .ai-layout, .b2b-layout, .dash-grid, .contact-layout{ grid-template-columns:1fr; }
+  .ai-layout, .b2b-layout, .dash-grid, .contact-layout, .profile-layout{ grid-template-columns:1fr; }
   .stat-grid{ grid-template-columns:repeat(2,1fr); }
   nav{ display:none; }
   .modal{ grid-template-columns:1fr; }
@@ -631,6 +684,9 @@ footer{ border-top:1px solid var(--line); padding:26px 24px; text-align:center; 
   .header-actions{ gap:6px; }
   .icon-btn{ width:34px; height:34px; }
   .hamburger-btn{ width:36px; height:36px; }
+  .account-btn{ display:none; }
+  .auth-card{ padding:26px 20px; }
+  .auth-section{ padding:36px 16px 70px; }
 }
 </style>
 </head>
@@ -687,6 +743,11 @@ const ICONS = {
   facebook:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3h-2.2A4.3 4.3 0 0 0 9 7.3V10H6.5v4H9v7h4v-7h2.8l.7-4H13V7.7a1 1 0 0 1 1-1h2.5z"/></svg>`,
   linkedin:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3.5"/><path d="M7.2 10.3V17M7.2 7.2v.01"/><path d="M11.3 17v-4.2a2.6 2.6 0 0 1 5.2 0V17M11.3 10.3V17"/></svg>`,
   image:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15.5l-5.5-5.5L5 20"/></svg>`,
+  eye:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  eyeOff:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A11 11 0 0 1 12 5c7 0 11 7 11 7a13.2 13.2 0 0 1-3.5 4.2M6.4 6.7C3.6 8.4 1 12 1 12s4 7 11 7c1.6 0 3-.3 4.3-.9"/><path d="M9.5 9.6a3 3 0 0 0 4.2 4.2"/></svg>`,
+  google:`<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.3c0-.8-.1-1.5-.2-2.2H12v4.3h5.9c-.3 1.4-1 2.5-2.2 3.3v2.7h3.6c2.1-1.9 3.2-4.8 3.2-8.1z"/><path fill="#34A853" d="M12 23c3 0 5.4-1 7.2-2.6l-3.6-2.7c-1 .7-2.2 1.1-3.6 1.1-2.8 0-5.1-1.9-6-4.4H2.3v2.8C4.1 20.6 7.8 23 12 23z"/><path fill="#FBBC05" d="M6 14.4c-.2-.7-.4-1.4-.4-2.2s.1-1.5.4-2.2V7.2H2.3A11 11 0 0 0 1 12c0 1.8.4 3.5 1.3 5l3.7-2.6z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.3 1.6l3.2-3.2C17.4 2 15 1 12 1 7.8 1 4.1 3.4 2.3 7.2L6 10c.9-2.5 3.2-4.6 6-4.6z"/></svg>`,
+  checkCircle:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.3 12.4l2.4 2.4 4.9-4.9"/></svg>`,
+  alertCircle:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.3"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none"/></svg>`,
 };
 
 /* ============ DATA ============ */
@@ -790,6 +851,7 @@ let state = {
   wishlist:[],
   recentlyViewed:[],
   appliedCoupon:null,
+  auth:{ loggedIn:false, name:'', email:'', phone:'', guest:false },
   dashView:'sotuvchi',
   b2bQty:100,
   b2bColor:'green',
@@ -916,6 +978,7 @@ function renderHeader(){
           <option value="en" ${state.lang==='en'?'selected':''}>English</option>
           <option value="ko" ${state.lang==='ko'?'selected':''}>한국어</option>
         </select>
+        <button class="icon-btn account-btn" id="accountBtn">${ICONS.user}</button>
         <button class="icon-btn" id="wishlistBtn">${ICONS.heart}
           ${state.wishlist.length ? `<span class="badge">${state.wishlist.length}</span>`:''}
         </button>
@@ -938,6 +1001,10 @@ function renderPage(){
   if(state.page==='contact') return renderContact();
   if(state.page==='about') return renderAbout();
   if(state.page==='faq') return renderFAQ();
+  if(state.page==='login') return renderLogin();
+  if(state.page==='register') return renderRegister();
+  if(state.page==='forgot') return renderForgot();
+  if(state.page==='profile') return renderProfile();
 }
 
 /* ============ HOME ============ */
@@ -1332,6 +1399,276 @@ function renderFAQ(){
         </div>`).join('')}
     </div>
   </section>`;
+}
+
+/* ============ AUTH HELPERS ============ */
+function isValidEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function setFieldError(inputId, msg){
+  const input = document.getElementById(inputId);
+  const err = document.getElementById(inputId+'Error');
+  if(!input) return;
+  if(msg){ input.classList.add('error'); if(err) err.textContent = msg; }
+  else{ input.classList.remove('error'); if(err) err.textContent = ''; }
+}
+function withLoading(btn, ms, cb){
+  if(!btn) return;
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = `<span class="btn-spinner-ring"></span>`;
+  setTimeout(()=>{ btn.disabled = false; btn.innerHTML = original; cb(); }, ms);
+}
+function togglePasswordField(inputId, btn){
+  const input = document.getElementById(inputId);
+  const showing = input.type === 'text';
+  input.type = showing ? 'password' : 'text';
+  btn.innerHTML = showing ? ICONS.eye : ICONS.eyeOff;
+}
+
+/* ============ LOGIN PAGE ============ */
+function renderLogin(){
+  return `
+  <section class="auth-section">
+    <div class="auth-card">
+      <div class="auth-logo"><div class="logo-mark"><div class="halo"></div>${iconGlow()}</div><span class="logo-text">Medi<b>glow</b></span></div>
+      <h2 class="serif">Xush kelibsiz</h2>
+      <p class="auth-sub">Hisobingizga kiring va xaridlaringizni davom ettiring</p>
+      <div class="auth-alert" id="loginAlert"></div>
+      <button class="btn-google" id="googleLoginBtn" type="button">${ICONS.google} Google orqali kirish</button>
+      <div class="auth-divider"><span>yoki</span></div>
+      <div class="form-row" style="margin-bottom:14px;">
+        <label>Email</label>
+        <input type="text" id="loginEmail" placeholder="email@example.com">
+        <div class="field-error" id="loginEmailError"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:8px;">
+        <label>Parol</label>
+        <div class="password-field">
+          <input type="password" id="loginPassword" placeholder="Parolingiz">
+          <button type="button" class="toggle-pass" data-toggle="loginPassword">${ICONS.eye}</button>
+        </div>
+        <div class="field-error" id="loginPasswordError"></div>
+      </div>
+      <div class="auth-row-between">
+        <label class="checkbox-row"><input type="checkbox" id="rememberMe"><span>Meni eslab qol</span></label>
+        <button class="auth-link" data-authnav="forgot" type="button">Parolni unutdingizmi?</button>
+      </div>
+      <button class="btn-primary auth-submit" id="loginSubmit" type="button" style="width:100%;justify-content:center;margin-top:20px;">Kirish</button>
+      <button class="auth-guest" id="guestBtn" type="button">Mehmon sifatida davom etish</button>
+      <p class="auth-footer-text">Hisobingiz yo'qmi? <button class="auth-link" data-authnav="register" type="button">Ro'yxatdan o'ting</button></p>
+    </div>
+  </section>`;
+}
+function bindLoginEvents(){
+  document.querySelectorAll('[data-toggle]').forEach(b=>{ b.onclick = ()=> togglePasswordField(b.dataset.toggle, b); });
+  document.querySelectorAll('[data-authnav]').forEach(b=>{ b.onclick = ()=>{ state.page = b.dataset.authnav; render(); window.scrollTo({top:0,behavior:'smooth'}); }; });
+  document.getElementById('guestBtn').onclick = ()=>{
+    state.auth = { loggedIn:true, name:'Mehmon', email:'', phone:'', guest:true };
+    state.page = 'home'; render(); showToast("Mehmon sifatida kirdingiz");
+  };
+  document.getElementById('googleLoginBtn').onclick = (e)=>{
+    withLoading(e.currentTarget, 1100, ()=>{
+      state.auth = { loggedIn:true, name:'Google foydalanuvchisi', email:'user@gmail.com', phone:'', guest:false };
+      state.page = 'profile'; render(); showToast("Google orqali kirdingiz");
+    });
+  };
+  document.getElementById('loginSubmit').onclick = (e)=>{
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPassword').value;
+    setFieldError('loginEmail', ''); setFieldError('loginPassword', '');
+    let ok = true;
+    if(!email || !isValidEmail(email)){ setFieldError('loginEmail', "To'g'ri email kiriting"); ok=false; }
+    if(!pass || pass.length<6){ setFieldError('loginPassword', "Parol kamida 6 belgidan iborat bo'lishi kerak"); ok=false; }
+    if(!ok){ showAuthAlert('loginAlert', "Iltimos, xatolarni tuzating", 'error'); return; }
+    withLoading(e.currentTarget, 900, ()=>{
+      state.auth = { loggedIn:true, name: email.split('@')[0], email, phone:'', guest:false };
+      state.page = 'profile'; render(); showToast("Xush kelibsiz!");
+    });
+  };
+}
+function showAuthAlert(elId, msg, type){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  el.className = 'auth-alert show '+type;
+  el.innerHTML = `${type==='error'?ICONS.alertCircle:ICONS.checkCircle}<span>${msg}</span>`;
+}
+
+/* ============ REGISTER PAGE ============ */
+function renderRegister(){
+  return `
+  <section class="auth-section">
+    <div class="auth-card">
+      <div class="auth-logo"><div class="logo-mark"><div class="halo"></div>${iconGlow()}</div><span class="logo-text">Medi<b>glow</b></span></div>
+      <h2 class="serif">Hisob yarating</h2>
+      <p class="auth-sub">Bir necha soniyada ro'yxatdan o'ting</p>
+      <div class="auth-alert" id="registerAlert"></div>
+      <button class="btn-google" id="googleRegisterBtn" type="button">${ICONS.google} Google orqali ro'yxatdan o'tish</button>
+      <div class="auth-divider"><span>yoki</span></div>
+      <div class="form-row" style="margin-bottom:14px;">
+        <label>To'liq ism</label>
+        <input type="text" id="regName" placeholder="Ismingiz">
+        <div class="field-error" id="regNameError"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:14px;">
+        <label>Email</label>
+        <input type="text" id="regEmail" placeholder="email@example.com">
+        <div class="field-error" id="regEmailError"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:14px;">
+        <label>Parol</label>
+        <div class="password-field">
+          <input type="password" id="regPassword" placeholder="Kamida 6 belgi">
+          <button type="button" class="toggle-pass" data-toggle="regPassword">${ICONS.eye}</button>
+        </div>
+        <div class="field-error" id="regPasswordError"></div>
+      </div>
+      <div class="form-row" style="margin-bottom:8px;">
+        <label>Parolni tasdiqlang</label>
+        <div class="password-field">
+          <input type="password" id="regConfirm" placeholder="Parolni qayta kiriting">
+          <button type="button" class="toggle-pass" data-toggle="regConfirm">${ICONS.eye}</button>
+        </div>
+        <div class="field-error" id="regConfirmError"></div>
+      </div>
+      <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="agreeTerms"><span>Foydalanish shartlariga roziman</span></label>
+      <button class="btn-primary auth-submit" id="registerSubmit" type="button" style="width:100%;justify-content:center;margin-top:18px;">Ro'yxatdan o'tish</button>
+      <button class="auth-guest" id="guestBtn2" type="button">Mehmon sifatida davom etish</button>
+      <p class="auth-footer-text">Hisobingiz bormi? <button class="auth-link" data-authnav="login" type="button">Kirish</button></p>
+    </div>
+  </section>`;
+}
+function bindRegisterEvents(){
+  document.querySelectorAll('[data-toggle]').forEach(b=>{ b.onclick = ()=> togglePasswordField(b.dataset.toggle, b); });
+  document.querySelectorAll('[data-authnav]').forEach(b=>{ b.onclick = ()=>{ state.page = b.dataset.authnav; render(); window.scrollTo({top:0,behavior:'smooth'}); }; });
+  document.getElementById('guestBtn2').onclick = ()=>{
+    state.auth = { loggedIn:true, name:'Mehmon', email:'', phone:'', guest:true };
+    state.page = 'home'; render(); showToast("Mehmon sifatida kirdingiz");
+  };
+  document.getElementById('googleRegisterBtn').onclick = (e)=>{
+    withLoading(e.currentTarget, 1100, ()=>{
+      state.auth = { loggedIn:true, name:'Google foydalanuvchisi', email:'user@gmail.com', phone:'', guest:false };
+      state.page = 'profile'; render(); showToast("Google orqali ro'yxatdan o'tildi");
+    });
+  };
+  document.getElementById('registerSubmit').onclick = (e)=>{
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const pass = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirm').value;
+    const agree = document.getElementById('agreeTerms').checked;
+    ['regName','regEmail','regPassword','regConfirm'].forEach(id=>setFieldError(id,''));
+    let ok = true;
+    if(!name || name.length<2){ setFieldError('regName', "Ismingizni kiriting"); ok=false; }
+    if(!email || !isValidEmail(email)){ setFieldError('regEmail', "To'g'ri email kiriting"); ok=false; }
+    if(!pass || pass.length<6){ setFieldError('regPassword', "Parol kamida 6 belgidan iborat bo'lishi kerak"); ok=false; }
+    if(confirm !== pass || !confirm){ setFieldError('regConfirm', "Parollar mos kelmadi"); ok=false; }
+    if(!ok){ showAuthAlert('registerAlert', "Iltimos, formadagi xatolarni tuzating", 'error'); return; }
+    if(!agree){ showAuthAlert('registerAlert', "Davom etish uchun foydalanish shartlariga rozilik bildiring", 'error'); return; }
+    withLoading(e.currentTarget, 1000, ()=>{
+      state.auth = { loggedIn:true, name, email, phone:'', guest:false };
+      showAuthAlert('registerAlert', "Hisob muvaffaqiyatli yaratildi!", 'success');
+      setTimeout(()=>{ state.page = 'profile'; render(); window.scrollTo({top:0,behavior:'smooth'}); }, 700);
+    });
+  };
+}
+
+/* ============ FORGOT PASSWORD PAGE ============ */
+function renderForgot(){
+  return `
+  <section class="auth-section">
+    <div class="auth-card">
+      <div class="auth-logo"><div class="logo-mark"><div class="halo"></div>${iconGlow()}</div><span class="logo-text">Medi<b>glow</b></span></div>
+      <h2 class="serif">Parolni tiklash</h2>
+      <p class="auth-sub">Emailingizni kiriting — sizga tiklash havolasini yuboramiz</p>
+      <div class="auth-alert" id="forgotAlert"></div>
+      <div class="form-row" style="margin-bottom:8px;">
+        <label>Email</label>
+        <input type="text" id="forgotEmail" placeholder="email@example.com">
+        <div class="field-error" id="forgotEmailError"></div>
+      </div>
+      <button class="btn-primary auth-submit" id="forgotSubmit" type="button" style="width:100%;justify-content:center;margin-top:16px;">Havola yuborish</button>
+      <p class="auth-footer-text"><button class="auth-link" data-authnav="login" type="button">← Kirish sahifasiga qaytish</button></p>
+    </div>
+  </section>`;
+}
+function bindForgotEvents(){
+  document.querySelectorAll('[data-authnav]').forEach(b=>{ b.onclick = ()=>{ state.page = b.dataset.authnav; render(); window.scrollTo({top:0,behavior:'smooth'}); }; });
+  document.getElementById('forgotSubmit').onclick = (e)=>{
+    const email = document.getElementById('forgotEmail').value.trim();
+    setFieldError('forgotEmail', '');
+    if(!email || !isValidEmail(email)){ setFieldError('forgotEmail', "To'g'ri email kiriting"); showAuthAlert('forgotAlert', "Iltimos, xatoni tuzating", 'error'); return; }
+    withLoading(e.currentTarget, 900, ()=>{
+      showAuthAlert('forgotAlert', "Agar bu email ro'yxatdan o'tgan bo'lsa, tiklash havolasi yuborildi.", 'success');
+    });
+  };
+}
+
+/* ============ PROFILE PAGE ============ */
+function renderProfile(){
+  if(!state.auth.loggedIn){
+    return `
+    <section class="auth-section">
+      <div class="auth-card" style="text-align:center;">
+        <div class="auth-logo" style="justify-content:center;"><div class="logo-mark"><div class="halo"></div>${iconGlow()}</div><span class="logo-text">Medi<b>glow</b></span></div>
+        <h2 class="serif">Profilga kirish talab qilinadi</h2>
+        <p class="auth-sub">Profilingizni ko'rish uchun hisobingizga kiring.</p>
+        <button class="btn-primary" data-authnav="login" type="button" style="width:100%;justify-content:center;margin-top:16px;">Kirish</button>
+        <button class="btn-outline" data-authnav="register" type="button" style="width:100%;justify-content:center;margin-top:10px;">Ro'yxatdan o'tish</button>
+      </div>
+    </section>`;
+  }
+  const u = state.auth;
+  return `
+  <section class="section">
+    <div class="section-head">
+      <div class="eyebrow">Profil</div>
+      <h2 class="serif">Mening hisobim</h2>
+    </div>
+    <div class="auth-alert" id="profileAlert"></div>
+    <div class="profile-layout">
+      <div class="profile-card">
+        <div class="profile-avatar">${(u.name||'M')[0].toUpperCase()}</div>
+        <div class="profile-name">${u.name || 'Mehmon'}</div>
+        ${u.email ? `<div class="profile-email">${u.email}</div>` : ''}
+        ${u.guest ? `<div class="guest-tag">Mehmon rejimi</div>` : ''}
+        <button class="auth-logout-btn" id="logoutBtn" type="button">Chiqish</button>
+      </div>
+      <div class="b2b-form">
+        <div class="two-col">
+          <div class="form-row">
+            <label>To'liq ism</label>
+            <input type="text" id="profName" value="${u.name||''}">
+          </div>
+          <div class="form-row">
+            <label>Email</label>
+            <input type="text" id="profEmail" value="${u.email||''}" ${u.guest?'placeholder="Mehmon rejimida email yo\'q"':''}>
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Telefon raqam</label>
+          <input type="text" id="profPhone" value="${u.phone||''}" placeholder="+998 90 123 45 67">
+        </div>
+        <button class="btn-primary" id="profSave" type="button" style="justify-content:center;">O'zgarishlarni saqlash</button>
+      </div>
+    </div>
+  </section>`;
+}
+function bindProfileEvents(){
+  document.querySelectorAll('[data-authnav]').forEach(b=>{ b.onclick = ()=>{ state.page = b.dataset.authnav; render(); window.scrollTo({top:0,behavior:'smooth'}); }; });
+  document.getElementById('logoutBtn')?.addEventListener('click', ()=>{
+    state.auth = { loggedIn:false, name:'', email:'', phone:'', guest:false };
+    state.page = 'home'; render(); showToast("Hisobdan chiqdingiz");
+  });
+  document.getElementById('profSave')?.addEventListener('click', (e)=>{
+    const name = document.getElementById('profName').value.trim();
+    const email = document.getElementById('profEmail').value.trim();
+    const phone = document.getElementById('profPhone').value.trim();
+    if(!name){ showAuthAlert('profileAlert', "Ismni kiriting", 'error'); return; }
+    withLoading(e.currentTarget, 700, ()=>{
+      state.auth.name = name; state.auth.email = email; state.auth.phone = phone;
+      showAuthAlert('profileAlert', "Ma'lumotlar saqlandi", 'success');
+      renderMobileNavDrawer();
+    });
+  });
 }
 
 /* ============ DASHBOARD ============ */
@@ -1811,21 +2148,33 @@ function renderMobileNavDrawer(){
     {label:L.contact, icon:'phone', page:'contact'},
     {label:L.faq, icon:'help', page:'faq'},
   ];
+  const accountLabel = state.auth.loggedIn ? (state.auth.name || 'Mening profilim') : "Kirish / Ro'yxatdan o'tish";
+  const accountPage = state.auth.loggedIn ? 'profile' : 'login';
   drawer.innerHTML = `
     <div class="drawer-head">
       <h3>${L.menu}</h3>
       <button class="close-btn" id="closeMobileNav">${ICONS.close}</button>
     </div>
     <div class="mnav-list">
+      <button class="mnav-item mnav-account ${state.page===accountPage?'active':''}" data-mnav-account="1">
+        ${ICONS.user}<span>${accountLabel}</span>
+      </button>
+      <div class="mnav-divider"></div>
       ${items.map((it,i)=>`
         <button class="mnav-item ${state.page===it.page && !it.scrollTarget ? 'active':''}" data-mnav="${i}">
           ${ICONS[it.icon]}<span>${it.label}</span>
         </button>`).join('')}
     </div>`;
-  bindMobileNavEvents(items);
+  bindMobileNavEvents(items, accountPage);
 }
-function bindMobileNavEvents(items){
+function bindMobileNavEvents(items, accountPage){
   document.getElementById('closeMobileNav').onclick = closeMobileNav;
+  document.querySelector('[data-mnav-account]').onclick = ()=>{
+    state.page = accountPage;
+    closeMobileNav();
+    render();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
   document.querySelectorAll('[data-mnav]').forEach(btn=>{
     btn.onclick = ()=>{
       const it = items[parseInt(btn.dataset.mnav)];
@@ -2130,6 +2479,7 @@ function bindGlobalEvents(){
   });
   document.getElementById('langSelect').onchange = (e)=>{ state.lang = e.target.value; render(); };
   document.getElementById('hamburgerBtn').onclick = openMobileNav;
+  document.getElementById('accountBtn').onclick = ()=>{ state.page = state.auth.loggedIn ? 'profile' : 'login'; render(); window.scrollTo({top:0,behavior:'smooth'}); };
   document.getElementById('wishlistBtn').onclick = openWishlistDrawer;
   document.getElementById('cartBtn').onclick = openDrawer;
 
@@ -2187,6 +2537,12 @@ function bindGlobalEvents(){
   document.querySelectorAll('[data-dash]').forEach(b=>{
     b.onclick = ()=>{ state.dashView = b.dataset.dash; render(); };
   });
+
+  // Auth pages
+  if(state.page==='login') bindLoginEvents();
+  if(state.page==='register') bindRegisterEvents();
+  if(state.page==='forgot') bindForgotEvents();
+  if(state.page==='profile') bindProfileEvents();
 
   // Contact page
   document.getElementById('cfSubmit')?.addEventListener('click', ()=>{
